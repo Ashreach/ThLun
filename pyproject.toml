@@ -1,0 +1,7 @@
+[project]
+name = "thlun"
+version = "0.0.1"
+description = "CLI lib"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = []
