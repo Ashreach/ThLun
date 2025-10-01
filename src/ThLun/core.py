@@ -36,3 +36,9 @@ class Console:
     @staticmethod
     def print(*args, **kwargs):
         print(*args, **kwargs, flush=True)
+
+
+if __name__ == "__main__":
+    console = Console()
+    console.print("Hello, world!")
+    console.scan("Press any key to continue...")
