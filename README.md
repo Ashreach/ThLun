@@ -17,3 +17,4 @@
   </p>
 </div>
 
+A Python CLI library for stylish and convenient terminal output.
