@@ -1,7 +1,29 @@
 [project]
 name = "thlun"
-version = "0.0.1"
-description = "CLI lib"
+version = "0.1.0"
+description = "CLI library"
+authors = [
+  { name = "Ashreach" }
+] 
+maintainers = [
+  { name = "IDegchan" },
+  { name = "Rastgame" }
+]
 readme = "README.md"
 requires-python = ">=3.9"
+license = "Apache-2.0"
 dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "mypy"]
+
+[project.urls]
+Homepage = "https://github.com/Ashreach/ThLun"
+Source = "https://github.com/Ashreach/ThLun"
+Organization = "https://github.com/Ashreach"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
