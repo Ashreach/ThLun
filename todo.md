@@ -1,0 +1,5 @@
+- [ ] Colors
+- [ ] Task bars
+- [ ] Loaders
+- [ ] Boofers
+- [ ] Menus
