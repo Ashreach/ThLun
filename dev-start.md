@@ -11,3 +11,6 @@ uv run -m ThLun.core
 
 
 має запрацювати.
+
+
+TEST
