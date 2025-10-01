@@ -31,6 +31,31 @@ class IO:
 
         return result
 
+    def scan_with_types(self, text: str, available_types=["chars", "numbers"], is_printing: bool = False) -> str:
+        """
+        Зчитує клавішу, дозволяючи лише символи з вказаних типів.
+        :param text: Текст-підказка
+        :param available_types: Список дозволених типів ('chars', 'numbers')
+        :param is_printing: Виводити натиснуту клавішу
+        :return: Перший допустимий символ
+        """
+        allowed_chars = set()
+
+        if "chars" in available_types:
+            allowed_chars.update(
+                [chr(c) for c in range(ord('a'), ord('z') + 1)] +
+                [chr(c) for c in range(ord('A'), ord('Z') + 1)]
+            )
+        if "numbers" in available_types:
+            allowed_chars.update([chr(c) for c in range(ord('0'), ord('9') + 1)])
+
+        while True:
+            char = self.scan(text, is_printing=False)
+            if char in allowed_chars:
+                if is_printing:
+                    print(char)
+                return char
+
     @staticmethod
     def print(*args, **kwargs):
         print(*args, **kwargs, flush=True)
