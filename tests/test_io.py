@@ -34,19 +34,15 @@ class TestIO:
         result = io.scan()
 
         assert result == "a"
-
     def test_scan_with_types_valid_char(self):
         """Test scan_with_types with valid character"""
         io = IO()
-
         with patch.object(io, "scan", return_value="a"):
             result = io.scan_with_types(allowed_types=["chars"])
             assert result == "a"
-
     def test_scan_with_types_valid_number(self):
         """Test scan_with_types with valid number"""
         io = IO()
-
         with patch.object(io, "scan", return_value="5"):
             result = io.scan_with_types(allowed_types=["numbers"])
             assert result == "5"
