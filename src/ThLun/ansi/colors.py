@@ -3,7 +3,8 @@ ANSI colors for ThLun library.
 Contains a class with ANSI escape code for a range of colors.
 """
 
-CSI = '\033['
+CSI = "\033["
+
 
 class Colors:
     BLACK = 0
@@ -263,20 +264,25 @@ class Colors:
     GREY89 = 254
     GREY93 = 255
 
+
 def fg(code):
     return f"{CSI}38;5;{code}m"
+
 
 def bg(code):
     return f"{CSI}48;5;{code}m"
 
+
 class Fore256:
     for name in dir(Colors):
-        if not name.startswith('_'):
+        if not name.startswith("_"):
             locals()[name] = fg(getattr(Colors, name))
+
 
 class Back256:
     for name in dir(Colors):
-        if not name.startswith('_'):
+        if not name.startswith("_"):
             locals()[name] = bg(getattr(Colors, name))
+
 
 RESET = f"{CSI}0m"

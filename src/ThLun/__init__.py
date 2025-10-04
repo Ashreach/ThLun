@@ -9,5 +9,14 @@ from .core import Console
 from .ansi import Fore, Back, RESET, clear_screen, clear_line, Cursor
 from .io import IO
 
-__all__ = ["Console", "IO", "Fore", "Back", "RESET", "clear_screen", "clear_line", "Cursor"]
+__all__ = [
+    "Console",
+    "IO",
+    "Fore",
+    "Back",
+    "RESET",
+    "clear_screen",
+    "clear_line",
+    "Cursor",
+]
 __version__ = "0.1.0"

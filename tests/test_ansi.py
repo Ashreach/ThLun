@@ -5,6 +5,7 @@ Tests the ANSI escape code operations for ThLun library.
 import unittest
 from src.ThLun.ansi import screen, colors
 
+
 class TestScreen(unittest.TestCase):
     def test_screen_operations(self):
         """
@@ -42,7 +43,7 @@ class TestScreen(unittest.TestCase):
 
         It checks that the returned ANSI escape code matches the expected format.
         """
-        expected = '\033[2J'
+        expected = "\033[2J"
         self.assertEqual(screen.clear_screen(), expected)
 
     def _test_clear_line(self):
@@ -51,7 +52,7 @@ class TestScreen(unittest.TestCase):
 
         It checks that the returned ANSI escape code matches the expected format.
         """
-        expected = '\033[2K'
+        expected = "\033[2K"
         self.assertEqual(screen.clear_line(), expected)
 
     def _test_cursor_up(self):
@@ -60,7 +61,7 @@ class TestScreen(unittest.TestCase):
 
         It checks that the returned ANSI escape code matches the expected format.
         """
-        expected = '\033[1A'
+        expected = "\033[1A"
         self.assertEqual(screen.Cursor.UP(), expected)
 
     def _test_cursor_down(self):
@@ -69,7 +70,7 @@ class TestScreen(unittest.TestCase):
 
         It checks that the returned ANSI escape code matches the expected format.
         """
-        expected = '\033[1B'
+        expected = "\033[1B"
         self.assertEqual(screen.Cursor.DOWN(), expected)
 
     def _test_cursor_forward(self):
@@ -78,7 +79,7 @@ class TestScreen(unittest.TestCase):
 
         It checks that the returned ANSI escape code matches the expected format.
         """
-        expected = '\033[1C'
+        expected = "\033[1C"
         self.assertEqual(screen.Cursor.FORWARD(), expected)
 
     def _test_cursor_back(self):
@@ -87,16 +88,16 @@ class TestScreen(unittest.TestCase):
 
         It checks that the returned ANSI escape code matches the expected format.
         """
-        expected = '\033[1D'
+        expected = "\033[1D"
         self.assertEqual(screen.Cursor.BACK(), expected)
 
     def _test_cursor_pos(self):
         """
         Tests that screen.Cursor.POS() returns the correct ANSI escape code for setting the cursor position.
-        
+
         It checks that the returned ANSI escape code matches the expected format.
         """
-        expected = '\033[1;1H'
+        expected = "\033[1;1H"
         self.assertEqual(screen.Cursor.POS(), expected)
 
     def _test_colors_fg(self):
@@ -106,7 +107,7 @@ class TestScreen(unittest.TestCase):
         It loops over all 256 possible colors and checks that the returned ANSI escape code
         matches the expected format.
         """
-        expected = '\033[38;5;{}m'
+        expected = "\033[38;5;{}m"
         for code in range(0, 256):
             color = colors.fg(code)
             self.assertEqual(color, expected.format(code))
@@ -115,7 +116,7 @@ class TestScreen(unittest.TestCase):
         """
         Tests that colors.bg() returns the correct ANSI escape code for all 256 colors.
         """
-        expected = '\033[48;5;{}m'
+        expected = "\033[48;5;{}m"
         for code in range(0, 256):
             color = colors.bg(code)
             self.assertEqual(color, expected.format(code))
