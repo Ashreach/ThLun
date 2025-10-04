@@ -1,3 +1,7 @@
+"""
+Test IO module for ThLun library.
+"""
+
 from unittest.mock import patch, MagicMock
 
 from ThLun import IO

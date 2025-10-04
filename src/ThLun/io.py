@@ -1,3 +1,8 @@
+"""
+Input/Output operations for ThLun library.
+Contains platform-agnostic functions for reading single characters from input.
+"""
+
 import sys
 
 
