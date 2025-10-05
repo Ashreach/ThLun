@@ -1,4 +1,4 @@
-- [ ] Colors
+- [x] Colors
 - [ ] Task bars
 - [ ] Loaders
 - [ ] Boofers
