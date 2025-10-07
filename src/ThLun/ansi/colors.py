@@ -266,10 +266,16 @@ class Colors:
 
 
 def fg(code):
+    """
+    Colors at this link: https://surl.li/alrkig
+    """
     return f"{CSI}38;5;{code}m"
 
 
 def bg(code):
+    """
+    Colors at this link: https://surl.li/alrkig
+    """
     return f"{CSI}48;5;{code}m"
 
 
