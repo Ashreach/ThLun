@@ -23,9 +23,9 @@ jobs:
       run: |
         pip install uv
 
-    - name: Install dependencies
+    - name: Sync dependencies (with dev extras)
       run: |
-        uv sync
+        uv sync --extra dev
 
     - name: Run tests with pytest
       run: |
