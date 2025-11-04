@@ -1,0 +1,294 @@
+"""
+ANSI colors for ThLun library.
+Contains a class with ANSI escape code for a range of colors.
+"""
+
+CSI = "\033["
+
+
+class Colors:
+    BLACK = 0
+    MAROON = 1
+    GREEN = 2
+    OLIVE = 3
+    NAVY = 4
+    PURPLE = 5
+    TEAL = 6
+    SILVER = 7
+    GREY = 8
+    RED = 9
+    LIME = 10
+    YELLOW = 11
+    BLUE = 12
+    FUCHSIA = 13
+    AQUA = 14
+    WHITE = 15
+    GREY0 = 16
+    NAVY_BLUE = 17
+    DARK_BLUE = 18
+    BLUE3_A = 19
+    BLUE3_B = 20
+    BLUE1 = 21
+    DARK_GREEN = 22
+    DEEP_SKY_BLUE4_A = 23
+    DEEP_SKY_BLUE4_B = 24
+    DEEP_SKY_BLUE4_C = 25
+    DODGER_BLUE3 = 26
+    DODGER_BLUE2 = 27
+    GREEN4 = 28
+    SPRING_GREEN4 = 29
+    TURQUOISE4 = 30
+    DEEP_SKY_BLUE3_A = 31
+    DEEP_SKY_BLUE3_B = 32
+    DODGER_BLUE1 = 33
+    GREEN3_A = 34
+    SPRING_GREEN3_A = 35
+    DARK_CYAN = 36
+    LIGHT_SEA_GREEN = 37
+    DEEP_SKY_BLUE2 = 38
+    DEEP_SKY_BLUE1 = 39
+    GREEN3_B = 40
+    SPRING_GREEN3_B = 41
+    SPRING_GREEN2_A = 42
+    CYAN3 = 43
+    DARK_TURQUOISE = 44
+    TURQUOISE2 = 45
+    GREEN1 = 46
+    SPRING_GREEN2_B = 47
+    SPRING_GREEN1 = 48
+    MEDIUM_SPRING_GREEN = 49
+    CYAN2 = 50
+    CYAN1 = 51
+    DARK_RED_A = 52
+    DEEP_PINK4_A = 53
+    PURPLE4_A = 54
+    PURPLE4_B = 55
+    PURPLE3 = 56
+    BLUE_VIOLET = 57
+    ORANGE4_A = 58
+    GREY37 = 59
+    MEDIUM_PURPLE4 = 60
+    SLATE_BLUE3_A = 61
+    SLATE_BLUE3_B = 62
+    ROYAL_BLUE1 = 63
+    CHARTREUSE4 = 64
+    DARK_SEA_GREEN4_A = 65
+    PALE_TURQUOISE4 = 66
+    STEEL_BLUE = 67
+    STEEL_BLUE3 = 68
+    CORNFLOWER_BLUE = 69
+    CHARTREUSE3_A = 70
+    DARK_SEA_GREEN4_B = 71
+    CADET_BLUE_A = 72
+    CADET_BLUE_B = 73
+    SKY_BLUE3 = 74
+    STEEL_BLUE1_A = 75
+    CHARTREUSE3_B = 76
+    PALE_GREEN3_A = 77
+    SEA_GREEN3 = 78
+    AQUAMARINE3 = 79
+    MEDIUM_TURQUOISE = 80
+    STEEL_BLUE1_B = 81
+    CHARTREUSE2_A = 82
+    SEA_GREEN2 = 83
+    SEA_GREEN1_A = 84
+    SEA_GREEN1_B = 85
+    AQUAMARINE1_A = 86
+    DARK_SLATE_GRAY2 = 87
+    DARK_RED_B = 88
+    DEEP_PINK4_B = 89
+    DARK_MAGENTA_A = 90
+    DARK_MAGENTA_B = 91
+    DARK_VIOLET_A = 92
+    PURPLE_A = 93
+    ORANGE4_B = 94
+    LIGHT_PINK4 = 95
+    PLUM4 = 96
+    MEDIUM_PURPLE3_A = 97
+    MEDIUM_PURPLE3_B = 98
+    SLATE_BLUE1 = 99
+    YELLOW4_A = 100
+    WHEAT4 = 101
+    GREY53 = 102
+    LIGHT_SLATE_GREY = 103
+    MEDIUM_PURPLE = 104
+    LIGHT_SLATE_BLUE = 105
+    YELLOW4_B = 106
+    DARK_OLIVE_GREEN3_A = 107
+    DARK_SEA_GREEN = 108
+    LIGHT_SKY_BLUE3_A = 109
+    LIGHT_SKY_BLUE3_B = 110
+    SKY_BLUE2 = 111
+    CHARTREUSE2_B = 112
+    DARK_OLIVE_GREEN3_B = 113
+    PALE_GREEN3_B = 114
+    DARK_SEA_GREEN3_A = 115
+    DARK_SLATE_GRAY3 = 116
+    SKY_BLUE1 = 117
+    CHARTREUSE1 = 118
+    LIGHT_GREEN_A = 119
+    LIGHT_GREEN_B = 120
+    PALE_GREEN1_A = 121
+    AQUAMARINE1_B = 122
+    DARK_SLATE_GRAY1 = 123
+    RED3_A = 124
+    DEEP_PINK4_C = 125
+    MEDIUM_VIOLET_RED = 126
+    MAGENTA3_A = 127
+    DARK_VIOLET_B = 128
+    PURPLE_B = 129
+    DARK_ORANGE3_A = 130
+    INDIAN_RED_A = 131
+    HOT_PINK3_A = 132
+    MEDIUM_ORCHID3 = 133
+    MEDIUM_ORCHID = 134
+    MEDIUM_PURPLE2_A = 135
+    DARK_GOLDENROD = 136
+    LIGHT_SALMON3_A = 137
+    ROSY_BROWN = 138
+    GREY63 = 139
+    MEDIUM_PURPLE2_B = 140
+    MEDIUM_PURPLE1 = 141
+    GOLD3_A = 142
+    DARK_KHAKI = 143
+    NAVAJO_WHITE3 = 144
+    GREY69 = 145
+    LIGHT_STEEL_BLUE3 = 146
+    LIGHT_STEEL_BLUE = 147
+    YELLOW3_A = 148
+    DARK_OLIVE_GREEN3_C = 149
+    DARK_SEA_GREEN3_B = 150
+    DARK_SEA_GREEN2_A = 151
+    LIGHT_CYAN3 = 152
+    LIGHT_SKY_BLUE1 = 153
+    GREEN_YELLOW = 154
+    DARK_OLIVE_GREEN2 = 155
+    PALE_GREEN1_B = 156
+    DARK_SEA_GREEN2_B = 157
+    DARK_SEA_GREEN1_A = 158
+    PALE_TURQUOISE1 = 159
+    RED3_B = 160
+    DEEP_PINK3_A = 161
+    DEEP_PINK3_B = 162
+    MAGENTA3_B = 163
+    MAGENTA3_C = 164
+    MAGENTA2_A = 165
+    DARK_ORANGE3_B = 166
+    INDIAN_RED_B = 167
+    HOT_PINK3_B = 168
+    HOT_PINK2 = 169
+    ORCHID = 170
+    MEDIUM_ORCHID1_A = 171
+    ORANGE3 = 172
+    LIGHT_SALMON3_B = 173
+    LIGHT_PINK3 = 174
+    PINK3 = 175
+    PLUM3 = 176
+    VIOLET = 177
+    GOLD3_B = 178
+    LIGHT_GOLDENROD3 = 179
+    TAN = 180
+    MISTY_ROSE3 = 181
+    THISTLE3 = 182
+    PLUM2 = 183
+    YELLOW3_B = 184
+    KHAKI3 = 185
+    LIGHT_GOLDENROD2_A = 186
+    LIGHT_YELLOW3 = 187
+    GREY84 = 188
+    LIGHT_STEEL_BLUE1 = 189
+    YELLOW2 = 190
+    DARK_OLIVE_GREEN1_A = 191
+    DARK_OLIVE_GREEN1_B = 192
+    DARK_SEA_GREEN1_B = 193
+    HONEYDEW2 = 194
+    LIGHT_CYAN1 = 195
+    RED1 = 196
+    DEEP_PINK2 = 197
+    DEEP_PINK1_A = 198
+    DEEP_PINK1_B = 199
+    MAGENTA2_B = 200
+    MAGENTA1 = 201
+    ORANGE_RED1 = 202
+    INDIAN_RED1_A = 203
+    INDIAN_RED1_B = 204
+    HOT_PINK_A = 205
+    HOT_PINK_B = 206
+    MEDIUM_ORCHID1_B = 207
+    DARK_ORANGE = 208
+    SALMON1 = 209
+    LIGHT_CORAL = 210
+    PALE_VIOLET_RED1 = 211
+    ORCHID2 = 212
+    ORCHID1 = 213
+    ORANGE1 = 214
+    SANDY_BROWN = 215
+    LIGHT_SALMON1 = 216
+    LIGHT_PINK1 = 217
+    PINK1 = 218
+    PLUM1 = 219
+    GOLD1 = 220
+    LIGHT_GOLDENROD2_B = 221
+    LIGHT_GOLDENROD2_C = 222
+    NAVAJO_WHITE1 = 223
+    MISTY_ROSE1 = 224
+    THISTLE1 = 225
+    YELLOW1 = 226
+    LIGHT_GOLDENROD1 = 227
+    KHAKI1 = 228
+    WHEAT1 = 229
+    CORNSILK1 = 230
+    GREY100 = 231
+    GREY3 = 232
+    GREY7 = 233
+    GREY11 = 234
+    GREY15 = 235
+    GREY19 = 236
+    GREY23 = 237
+    GREY27 = 238
+    GREY30 = 239
+    GREY35 = 240
+    GREY39 = 241
+    GREY42 = 242
+    GREY46 = 243
+    GREY50 = 244
+    GREY54 = 245
+    GREY58 = 246
+    GREY62 = 247
+    GREY66 = 248
+    GREY70 = 249
+    GREY74 = 250
+    GREY78 = 251
+    GREY82 = 252
+    GREY85 = 253
+    GREY89 = 254
+    GREY93 = 255
+
+
+def fg(code):
+    """
+    Colors at this link: https://surl.li/alrkig
+    """
+    return f"{CSI}38;5;{code}m"
+
+
+def bg(code):
+    """
+    Colors at this link: https://surl.li/alrkig
+    """
+    return f"{CSI}48;5;{code}m"
+
+
+class Fore256:
+    for name in dir(Colors):
+        if not name.startswith("_"):
+            locals()[name] = fg(getattr(Colors, name))
+
+
+class Back256:
+    for name in dir(Colors):
+        if not name.startswith("_"):
+            locals()[name] = bg(getattr(Colors, name))
+
+
+RESET = f"{CSI}0m"

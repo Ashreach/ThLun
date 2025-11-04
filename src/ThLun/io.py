@@ -1,8 +1,15 @@
+"""
+Input/Output operations for ThLun library.
+Contains platform-agnostic functions for reading single characters from input.
+"""
+
 import sys
 
 
 class IO:
-    def scan(self, prompt: str = "", is_printing: bool = False, end_line: bool = True) -> str:
+    def scan(
+        self, prompt: str = "", is_printing: bool = False, end_line: bool = True
+    ) -> str:
         """
         Read a single character from input without waiting for Enter.
         Works on Windows, Linux, and macOS.
@@ -19,6 +26,7 @@ class IO:
 
         if sys.platform.startswith("win"):
             import msvcrt
+
             ch = msvcrt.getwch()
             if ch in ("\x00", "\xe0"):
                 _ = msvcrt.getwch()  # Skip special key second byte
@@ -48,7 +56,7 @@ class IO:
         self,
         prompt: str = "",
         allowed_types: list[str] = ["chars", "numbers"],
-        is_printing: bool = False
+        is_printing: bool = False,
     ) -> str:
         """
         Read one character of allowed types (letters, numbers).
@@ -62,11 +70,11 @@ class IO:
 
         if "chars" in allowed_types:
             allowed_chars.update(
-                [chr(c) for c in range(ord('a'), ord('z') + 1)] +
-                [chr(c) for c in range(ord('A'), ord('Z') + 1)]
+                [chr(c) for c in range(ord("a"), ord("z") + 1)]
+                + [chr(c) for c in range(ord("A"), ord("Z") + 1)]
             )
         if "numbers" in allowed_types:
-            allowed_chars.update([chr(c) for c in range(ord('0'), ord('9') + 1)])
+            allowed_chars.update([chr(c) for c in range(ord("0"), ord("9") + 1)])
 
         while True:
             char = self.scan(prompt, is_printing=False)
@@ -76,7 +84,9 @@ class IO:
                     sys.stdout.flush()
                 return char
 
-    def secret(self, prompt: str = "", spoiler: str = '*', end_line: bool = True) -> str:
+    def secret(
+        self, prompt: str = "", spoiler: str = "*", end_line: bool = True
+    ) -> str:
         """
         Input text where each character is hidden with a spoiler symbol (e.g., '*').
         Supports backspace.
@@ -94,11 +104,11 @@ class IO:
         while True:
             char = self.scan(end_line=False)
 
-            if char in ('\r', '\n'):  # Enter
+            if char in ("\r", "\n"):  # Enter
                 break
-            elif char in ('\x08', '\x7f'):  # Backspace (Windows / Unix)
+            elif char in ("\x08", "\x7f"):  # Backspace (Windows / Unix)
                 if secret:
-                    sys.stdout.write('\b \b')
+                    sys.stdout.write("\b \b")
                     sys.stdout.flush()
                     secret = secret[:-1]
             else:
