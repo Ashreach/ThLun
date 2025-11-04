@@ -3,7 +3,7 @@ Output operations for ThLun library.
 Supports ANSI placeholders like [RED], [BACK_BLUE], [BOLD], [RESET].
 """
 
-from .io import RESET, Back256, Fore256, Style
+from . import RESET, Back256, Fore256, Style
 
 
 class OUTPUT:
