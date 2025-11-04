@@ -21,7 +21,7 @@ class Logger:
         """
         self.log_level = log_level
 
-    def log(self, log_level, message: str, print_function=False):
+    def log(self, log_level: LogLevel | str, message: str, print_function=False):
         """
         Output a message with the given log level.
 
