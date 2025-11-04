@@ -1,16 +1,12 @@
 """
 ThLun - A Python library for generating stylish terminal output.
-
-This library includes a cross-platform way to read single characters from
-input, and a 256-color ANSI wrapper for terminal printing.
 """
 
-from .core import Console
-from .ansi import Fore, Back, RESET, clear_screen, clear_line, Cursor
 from .io import IO
+from .io.ansi import RESET, Back, Cursor, Fore, clear_line, clear_screen
+from .logger import Logger, LogLevel
 
 __all__ = [
-    "Console",
     "IO",
     "Fore",
     "Back",
@@ -18,5 +14,7 @@ __all__ = [
     "clear_screen",
     "clear_line",
     "Cursor",
+    "Logger",
+    "LogLevel"
 ]
 __version__ = "0.1.0"

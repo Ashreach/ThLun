@@ -1,4 +1,5 @@
 - [x] Colors
+- [x] Logger
 - [ ] Task bars
 - [ ] Loaders
 - [ ] Boofers
