@@ -5,7 +5,7 @@ Types for the Logger module of ThLun library.
 from dataclasses import dataclass, field
 from functools import total_ordering
 
-from ThLun.ansi import Fore
+from ThLun.io import Fore
 
 
 @total_ordering

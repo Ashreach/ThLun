@@ -6,7 +6,7 @@ Contains a class for logging messages with customizable logging levels and color
 import datetime
 import inspect
 
-from ThLun.ansi import RESET, Fore
+from ThLun.io import RESET, Fore
 
 from .types import LogLevel
 

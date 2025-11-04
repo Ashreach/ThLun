@@ -121,6 +121,8 @@ class IO:
 
         return secret
 
+    ...
+
     @staticmethod
     def print(*args, **kwargs):
         """
