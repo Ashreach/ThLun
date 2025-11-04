@@ -3,7 +3,7 @@ Output operations for ThLun library.
 Supports ANSI placeholders like [RED], [BACK_BLUE], [BOLD], [RESET].
 """
 
-from .ansi import RESET, Back256, Fore256, Style
+from .ansi import RESET, Back, Fore, Style
 
 
 class OUTPUT:
@@ -24,11 +24,11 @@ class OUTPUT:
 
         placeholders = {}
 
-        for name, value in vars(Fore256).items():
+        for name, value in vars(Fore).items():
             if not name.startswith("_"):
                 placeholders[name.upper()] = value
 
-        for name, value in vars(Back256).items():
+        for name, value in vars(Back).items():
             if not name.startswith("_"):
                 placeholders[f"BACK_{name.upper()}"] = value
 
