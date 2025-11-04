@@ -1,13 +1,18 @@
 """
 Output operations for ThLun library.
-Supports ANSI placeholders like [RED], [BACK_BLUE], [BOLD], [RESET].
+Supports:
+    - Named placeholders like [RED], [BACK_BLUE], [BOLD], [RESET]
+    - Numeric color codes:
+        [31]   → foreground (e.g. red)
+        [BG44] → background (e.g. blue)
 """
 
 from .ansi import RESET, Back, Fore, Style
+import re
 
 
 class OUTPUT:
-    """Formatted console output with automatic ANSI color replacement."""
+    """Formatted console output with ANSI placeholder and numeric color support."""
 
     _placeholders = None
 
@@ -30,7 +35,7 @@ class OUTPUT:
 
         for name, value in vars(Back).items():
             if not name.startswith("_"):
-                placeholders[f"BACK_{name.upper()}"] = value
+                placeholders[f"BG_{name.upper()}"] = value
 
         for name, value in vars(Style).items():
             if not name.startswith("_"):
@@ -42,11 +47,25 @@ class OUTPUT:
         return placeholders
 
     @classmethod
+    def _replace_numeric_colors(cls, text: str) -> str:
+        """
+        Replace numeric and BGn placeholders:
+        [31]  -> \033[31m
+        [BG44] -> \033[44m
+        """
+        text = re.sub(r"\[BG(\d{1,3})\]", lambda m: f"\033[{m.group(1)}m", text)
+        text = re.sub(r"\[(\d{1,3})\]", lambda m: f"\033[{m.group(1)}m", text)
+        return text
+
+    @classmethod
     def bprint(cls, *args, **kwargs):
         """
-        Print with placeholders.
-        Example:
-            OUTPUT.bprint("[RED][BOLD]Error:[RESET] Something went wrong!\n")
+        Print with placeholders and numeric color support.
+
+        Examples:
+            OUTPUT.bprint("[RED][BOLD]Error:[RESET] Something went wrong!")
+            OUTPUT.bprint("[31]Red text[RESET]")
+            OUTPUT.bprint("[BG46][30]Black on Cyan[RESET]")
         """
         text = "".join(map(str, args))
         placeholders = cls._get_placeholders()
@@ -54,6 +73,9 @@ class OUTPUT:
         for placeholder, value in placeholders.items():
             text = text.replace(f"[{placeholder}]", value)
 
+        text = cls._replace_numeric_colors(text)
+
         cls._print(text, **kwargs)
+
 
 bprint = OUTPUT.bprint
