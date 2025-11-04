@@ -55,3 +55,5 @@ class OUTPUT:
             text = text.replace(f"[{placeholder}]", value)
 
         cls._print(text, **kwargs)
+
+bprint = OUTPUT.bprint

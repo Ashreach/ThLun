@@ -6,4 +6,4 @@ log.info("Hello, world!")
 
 log.success("Hello, world!")
 
-bprint('test')
+bprint('[YELLOW]test[RESET]')
