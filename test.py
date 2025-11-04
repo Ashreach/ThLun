@@ -1,4 +1,4 @@
-from ThLun import Logger, LogLevel
+from ThLun import Logger, LogLevel, bprint
 
 log = Logger(LogLevel.DEBUG)
 
@@ -6,3 +6,4 @@ log.info("Hello, world!")
 
 log.success("Hello, world!")
 
+bprint('test')
