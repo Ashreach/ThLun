@@ -3,11 +3,11 @@ Output operations for ThLun library.
 Supports:
     - Named placeholders like [RED], [BACK_BLUE], [BOLD], [RESET]
     - Numeric color codes:
-        [31]   → foreground (e.g. red)
-        [BG44] → background (e.g. blue)
+        [31]   → foreground
+        [BG44] → background
 """
 
-from .ansi import RESET, Back, Fore, Style
+from .ansi import RESET, Back, Fore, Style, fg_replacer, bg_replacer
 import re
 
 
@@ -49,12 +49,17 @@ class OUTPUT:
     @classmethod
     def _replace_numeric_colors(cls, text: str) -> str:
         """
-        Replace numeric and BGn placeholders:
-        [31]  -> \033[31m
-        [BG44] -> \033[44m
+        Replace numeric and BGn placeholders using fg/bg functions:
+            [31]   -> fg(31)
+            [BG44] -> bg(44)
         """
-        text = re.sub(r"\[BG(\d{1,3})\]", lambda m: f"\033[{m.group(1)}m", text)
-        text = re.sub(r"\[(\d{1,3})\]", lambda m: f"\033[{m.group(1)}m", text)
+
+        # Background color [BG44]
+        text = re.sub(r"\[BG(\d{1,3})\]", lambda m: bg_replacer(int(m.group(1))), text)
+
+        # Foreground color [31]
+        text = re.sub(r"\[(\d{1,3})\]", lambda m: fg_replacer(int(m.group(1))), text)
+
         return text
 
     @classmethod
@@ -64,8 +69,8 @@ class OUTPUT:
 
         Examples:
             OUTPUT.bprint("[RED][BOLD]Error:[RESET] Something went wrong!")
-            OUTPUT.bprint("[31]Red text[RESET]")
-            OUTPUT.bprint("[BG46][30]Black on Cyan[RESET]")
+            OUTPUT.bprint("[31]text[RESET]")
+            OUTPUT.bprint("[BG46][30]test[RESET]")
         """
         text = "".join(map(str, args))
         placeholders = cls._get_placeholders()
