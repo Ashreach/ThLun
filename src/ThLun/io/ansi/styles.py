@@ -267,14 +267,14 @@ class Colors:
 
 def fg(code):
     """
-    Colors at this link: https://surl.li/alrkig
+    Colors at this link: https://cdn.yurba.one/photos/3934.jpg
     """
     return f"{CSI}38;5;{code}m"
 
 
 def bg(code):
     """
-    Colors at this link: https://surl.li/alrkig
+    Colors at this link: https://cdn.yurba.one/photos/3934.jpg
     """
     return f"{CSI}48;5;{code}m"
 
