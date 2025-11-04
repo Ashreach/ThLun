@@ -1,4 +1,6 @@
-from .colors import Fore256 as Fore, Back256 as Back, RESET
-from .screen import clear_screen, clear_line, Cursor
+from .styles import RESET
+from .styles import Back256 as Back
+from .styles import Fore256 as Fore
+from .screen import Cursor, clear_line, clear_screen
 
 __all__ = ["Fore", "Back", "RESET", "clear_screen", "clear_line", "Cursor"]
