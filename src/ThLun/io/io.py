@@ -120,12 +120,3 @@ class IO:
             print()
 
         return secret
-
-    ...
-
-    @staticmethod
-    def print(*args, **kwargs):
-        """
-        Wrapper around built-in print() with flush always enabled.
-        """
-        print(*args, **kwargs, flush=True)
