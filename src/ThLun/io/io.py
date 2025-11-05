@@ -1,23 +1,41 @@
 """
 Input/Output operations for ThLun library.
-Contains platform-agnostic functions for reading single characters from input.
+
+This module provides cross-platform utilities for single-character input,
+masked (secret) input, and type-restricted character scanning.
 """
 
 import sys
+import contextlib
+
+
+@contextlib.contextmanager
+def _raw_mode(fd: int):
+    """Temporarily set terminal to raw mode (Unix only)."""
+    import termios
+    import tty 
+
+    old_settings = termios.tcgetattr(fd)
+    try:
+        tty.setraw(fd)
+        yield
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 
 
 class IO:
-    def scan(
-        self, prompt: str = "", is_printing: bool = False, end_line: bool = True
-    ) -> str:
-        """
-        Read a single character from input without waiting for Enter.
-        Works on Windows, Linux, and macOS.
+    """Provides portable low-level input operations."""
 
-        :param prompt: Prompt to display before input.
-        :param is_printing: If True, prints the captured character.
-        :param end_line: If True, prints newline after character (if printed).
-        :return: Captured character as str.
+    def scan(self, prompt: str = "", is_printing: bool = False, end_line: bool = True) -> str:
+        """Read a single character from input without waiting for Enter.
+
+        Args:
+            prompt: Text to display before reading.
+            is_printing: Whether to print the captured character.
+            end_line: Whether to print a newline after printing the character.
+
+        Returns:
+            The captured character as a string.
         """
         sys.stdout.write(prompt)
         sys.stdout.flush()
@@ -28,21 +46,14 @@ class IO:
             import msvcrt
 
             ch = msvcrt.getwch()
-            if ch in ("\x00", "\xe0"):
-                _ = msvcrt.getwch()  # Skip special key second byte
+            if ch in ("\x00", "\xe0"):  # Skip special keys
+                _ = msvcrt.getwch()
                 return ""
             result = ch
         else:
-            import termios
-            import tty
-
             fd = sys.stdin.fileno()
-            old_settings = termios.tcgetattr(fd)
-            try:
-                tty.setraw(fd)
+            with _raw_mode(fd):
                 result = sys.stdin.read(1)
-            finally:
-                termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 
         if is_printing:
             sys.stdout.write(result)
@@ -55,18 +66,23 @@ class IO:
     def scan_with_types(
         self,
         prompt: str = "",
-        allowed_types: list[str] = ["chars", "numbers"],
+        allowed_types: list[str] | None = None,
         is_printing: bool = False,
     ) -> str:
-        """
-        Read one character of allowed types (letters, numbers).
+        """Read one character filtered by allowed type groups.
 
-        :param prompt: Prompt to display.
-        :param allowed_types: List of types allowed: "chars", "numbers".
-        :param is_printing: If True, prints accepted character.
-        :return: First valid character.
+        Args:
+            prompt: Prompt to display.
+            allowed_types: List of allowed categories: ``["chars"]``, ``["numbers"]`` or both.
+            is_printing: Whether to print accepted character immediately.
+
+        Returns:
+            First valid character.
         """
-        allowed_chars = set()
+        if allowed_types is None:
+            allowed_types = ["chars", "numbers"]
+
+        allowed_chars: set[str] = set()
 
         if "chars" in allowed_types:
             allowed_chars.update(
@@ -74,7 +90,7 @@ class IO:
                 + [chr(c) for c in range(ord("A"), ord("Z") + 1)]
             )
         if "numbers" in allowed_types:
-            allowed_chars.update([chr(c) for c in range(ord("0"), ord("9") + 1)])
+            allowed_chars.update(chr(c) for c in range(ord("0"), ord("9") + 1))
 
         while True:
             char = self.scan(prompt, is_printing=False)
@@ -84,17 +100,18 @@ class IO:
                     sys.stdout.flush()
                 return char
 
-    def secret(
-        self, prompt: str = "", spoiler: str = "*", end_line: bool = True
-    ) -> str:
-        """
-        Input text where each character is hidden with a spoiler symbol (e.g., '*').
-        Supports backspace.
+    def secret(self, prompt: str = "", spoiler: str = "*", end_line: bool = True) -> str:
+        """Read a masked (secret) string from input.
 
-        :param prompt: Prompt to display.
-        :param spoiler: Masking character.
-        :param end_line: If True, prints newline after input.
-        :return: The entered secret string.
+        Each character is hidden with a given spoiler symbol (e.g., '*').
+
+        Args:
+            prompt: Prompt text.
+            spoiler: Character used to mask input.
+            end_line: Whether to print newline after completion.
+
+        Returns:
+            Entered secret string.
         """
         sys.stdout.write(prompt)
         sys.stdout.flush()
@@ -104,9 +121,9 @@ class IO:
         while True:
             char = self.scan(end_line=False)
 
-            if char in ("\r", "\n"):  # Enter
+            if char in ("\r", "\n"):  # Enter pressed
                 break
-            elif char in ("\x08", "\x7f"):  # Backspace (Windows / Unix)
+            elif char in ("\x08", "\x7f"):  # Backspace
                 if secret:
                     sys.stdout.write("\b \b")
                     sys.stdout.flush()
@@ -117,6 +134,6 @@ class IO:
                 secret += char
 
         if end_line:
-            print()
+            sys.stdout.write("\n")
 
         return secret
