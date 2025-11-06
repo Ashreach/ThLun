@@ -12,6 +12,7 @@ validation:
   unrecognized_links: warn
 
 nav:
+  - Home: index.md
   - Reference:
     - IO: reference/io.md
     - Logger: reference/logger.md
