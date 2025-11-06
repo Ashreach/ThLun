@@ -1,6 +1,5 @@
 site_name: "ThLun Docs"
 site_description: "CLI/TUI Python-бібліотека"
-site_url: "https://ashreach.github.io/ThLun/"
 repo_url: "https://github.com/Ashreach/ThLun"
 repo_name: "Ashreach/ThLun"
 site_dir: "site"
