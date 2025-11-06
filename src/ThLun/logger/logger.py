@@ -1,33 +1,39 @@
 """
-Logger module for ThLun library.
-Contains a class for logging messages with customizable logging levels and colors.
+Logger module for the ThLun library.
+
+This module defines the `Logger` class, which provides colorful, structured logging
+with customizable logging levels.
 """
 
 import datetime
 import inspect
 
 from ThLun.io import RESET, Fore
-
 from .types import LogLevel
 
 
 class Logger:
+    """Customizable logger for displaying formatted messages with colors."""
+
     def __init__(self, log_level: LogLevel):
         """
-        Initialize a Logger instance with the given log level.
+        Initialize a Logger instance.
 
-        :param log_level: Log level associated with the logger. All log messages
-            with a level less than or equal to this will be printed.
+        Args:
+            log_level (LogLevel): The minimum log level. Messages with equal or higher
+                level will be printed.
         """
         self.log_level = log_level
 
-    def log(self, log_level: LogLevel | str, message: str, print_function=False):
+    def log(self, log_level: LogLevel | str, message: str, print_function: bool = False):
         """
         Output a message with the given log level.
 
-        :param log_level: Log level associated with the message.
-        :param message: Log message to print.
-        :param print_function: If True, prints the function name where the log was called.
+        Args:
+            log_level (LogLevel | str): The log level of the message.
+            message (str): The text to log.
+            print_function (bool): If True, includes the function name where the log
+                was called.
         """
         if log_level <= self.log_level:
             self._output(message, log_level, print_function)
@@ -35,11 +41,12 @@ class Logger:
     @classmethod
     def _output(cls, message: str, log_level: LogLevel, print_function: bool):
         """
-        Internal method for formatting and printing log messages.
+        Format and print a log message.
 
-        :param message: Log message to print.
-        :param log_level: Log level associated with the message.
-        :param print_function: If True, prints the function name where the log was called.
+        Args:
+            message (str): The message text.
+            log_level (LogLevel): The log level for this message.
+            print_function (bool): Whether to show the function name in output.
         """
         stack = inspect.stack()
         frame = next(
@@ -50,10 +57,11 @@ class Logger:
         line = frame.lineno
         function = frame.function
 
-        BASE_LINE = (
+        base_line = (
             "{time_color}{asctime} {RESET}"
             + "{color_breaks}[{log_level_color}{log_level_name}{color_breaks}] {RESET}"
-            + "{file_color}{filename}{color_breaks}:{line_color}{line}{function_color}{function_line} {RESET}"
+            + "{file_color}{filename}{color_breaks}:{line_color}{line}"
+            + "{function_color}{function_line} {RESET}"
             + "{reset_color}イ{message_color}{message_text}"
         )
 
@@ -75,74 +83,82 @@ class Logger:
             "function_line": f":{function}" if print_function else "",
         }
 
-        print(BASE_LINE.format(**kwargs))
+        print(base_line.format(**kwargs))
 
+    # Static logging methods
     @staticmethod
-    def trace(message: str, print_function=False):
+    def trace(message: str, print_function: bool = False):
         """
-        Output a message with a logging level of TRACE.
+        Log a message at TRACE level.
 
-        :param message: Message to output.
-        :param print_function: If True, prints the function name where the trace was called.
+        Args:
+            message (str): The message text.
+            print_function (bool): Whether to include the calling function name.
         """
         Logger(LogLevel.TRACE).log(LogLevel.TRACE, message, print_function)
 
     @staticmethod
-    def debug(message: str, print_function=False):
+    def debug(message: str, print_function: bool = False):
         """
-        Output a message with a logging level of DEBUG.
+        Log a message at DEBUG level.
 
-        :param message: Message to output.
-        :param print_function: If True, prints the function name where the debug was called.
+        Args:
+            message (str): The message text.
+            print_function (bool): Whether to include the calling function name.
         """
         Logger(LogLevel.DEBUG).log(LogLevel.DEBUG, message, print_function)
 
     @staticmethod
-    def info(message: str, print_function=False):
+    def info(message: str, print_function: bool = False):
         """
-        Output a message with a logging level of INFO.
+        Log a message at INFO level.
 
-        :param message: Message to output.
-        :param print_function: If True, prints the function name where the info was called.
+        Args:
+            message (str): The message text.
+            print_function (bool): Whether to include the calling function name.
         """
         Logger(LogLevel.INFO).log(LogLevel.INFO, message, print_function)
 
     @staticmethod
-    def success(message: str, print_function=False):
+    def success(message: str, print_function: bool = False):
         """
-        Output a message with a logging level of SUCCESS.
+        Log a message at SUCCESS level.
 
-        :param message: Message to output.
-        :param print_function: If True, prints the function name where the success was called.
+        Args:
+            message (str): The message text.
+            print_function (bool): Whether to include the calling function name.
         """
         Logger(LogLevel.SUCCESS).log(LogLevel.SUCCESS, message, print_function)
 
     @staticmethod
-    def warning(message: str, print_function=False):
+    def warning(message: str, print_function: bool = False):
         """
-        Output a message with a logging level of WARNING.
+        Log a message at WARNING level.
 
-        :param message: Message to output.
-        :param print_function: If True, prints the function name where the warning was called.
+        Args:
+            message (str): The message text.
+            print_function (bool): Whether to include the calling function name.
         """
         Logger(LogLevel.WARNING).log(LogLevel.WARNING, message, print_function)
 
     @staticmethod
-    def error(message: str, print_function=False):
+    def error(message: str, print_function: bool = False):
         """
-        Output a message with a logging level of ERROR.
+        Log a message at ERROR level.
 
-        :param message: Message to output.
-        :param print_function: If True, prints the function name where the error was called.
+        Args:
+            message (str): The message text.
+            print_function (bool): Whether to include the calling function name.
         """
         Logger(LogLevel.ERROR).log(LogLevel.ERROR, message, print_function)
 
     @staticmethod
-    def critical(message: str, print_function=False):
+    def critical(message: str, print_function: bool = False):
         """
-        Output a message with a logging level of CRITICAL.
+        Log a message at CRITICAL level.
 
-        :param message: Message to output.
-        :param print_function: If True, prints the function name where the critical was called.
+        Args:
+            message (str): The message text.
+            print_function (bool): Whether to include the calling function name.
         """
         Logger(LogLevel.CRITICAL).log(LogLevel.CRITICAL, message, print_function)

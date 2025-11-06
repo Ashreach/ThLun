@@ -13,7 +13,9 @@ validation:
   unrecognized_links: warn
 
 nav:
-  - Reference: reference.md
+  - Reference:
+    - IO: reference/io.md
+    - Logger: reference/logger.md
 
 theme:
   name: material

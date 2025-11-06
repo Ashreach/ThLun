@@ -1,5 +1,5 @@
 """
-Types for the Logger module of ThLun library.
+Type definitions for the Logger module of the ThLun library.
 """
 
 from dataclasses import dataclass, field
@@ -11,25 +11,30 @@ from ThLun.io import Fore
 @total_ordering
 @dataclass(frozen=True, slots=True)
 class LogLevelData:
+    """Represents a logging level with name, color, and hierarchical height."""
+
     name: str = field(init=True)
     color: str = field(init=True)
     height: int = field(init=True)
 
     def __post_init__(self):
         """
-        Centers the name of the logging level to 10 characters.
+        Center the level name to 10 characters.
 
-        Modifies the LogLevelData object by setting the name attribute to a centered version of the original name.
+        This ensures consistent formatting of log level names in the output.
         """
         name = self.name.center(10, " ")
         object.__setattr__(self, "name", name)
 
     def __eq__(self, other: object) -> bool:
         """
-        Compares two LogLevelData objects by their height attribute.
+        Compare equality based on the height attribute.
 
-        :param other: object to compare
-        :return: True if self.height == other.height, False otherwise
+        Args:
+            other (object): Object to compare.
+
+        Returns:
+            bool: True if both levels have equal height, otherwise False.
         """
         if not isinstance(other, LogLevelData):
             return NotImplemented
@@ -37,10 +42,13 @@ class LogLevelData:
 
     def __lt__(self, other: object) -> bool:
         """
-        Compares two LogLevelData objects by their height attribute.
+        Compare ordering based on the height attribute.
 
-        :param other: object to compare
-        :return: True if self.height < other.height, False otherwise
+        Args:
+            other (object): Object to compare.
+
+        Returns:
+            bool: True if the current level's height is less than the other.
         """
         if not isinstance(other, LogLevelData):
             return NotImplemented
@@ -48,7 +56,7 @@ class LogLevelData:
 
 
 class LogLevel:
-    """Predefined logging levels with color and hierarchy height."""
+    """Defines standard logging levels with associated color and hierarchy."""
 
     TRACE = LogLevelData(name="TRACE", color=Fore.CYAN1, height=10)
     DEBUG = LogLevelData(name="DEBUG", color=Fore.GREEN, height=20)

@@ -13,7 +13,7 @@ import contextlib
 def _raw_mode(fd: int):
     """Temporarily set terminal to raw mode (Unix only)."""
     import termios
-    import tty 
+    import tty
 
     old_settings = termios.tcgetattr(fd)
     try:
@@ -35,7 +35,7 @@ class IO:
             end_line: Whether to print a newline after printing the character.
 
         Returns:
-            The captured character as a string.
+            str: The captured character.
         """
         sys.stdout.write(prompt)
         sys.stdout.flush()
@@ -73,11 +73,11 @@ class IO:
 
         Args:
             prompt: Prompt to display.
-            allowed_types: List of allowed categories: ``["chars"]``, ``["numbers"]`` or both.
+            allowed_types: Allowed categories – e.g. ``["chars"]``, ``["numbers"]``, or both.
             is_printing: Whether to print accepted character immediately.
 
         Returns:
-            First valid character.
+            str: The first valid character.
         """
         if allowed_types is None:
             allowed_types = ["chars", "numbers"]
@@ -103,7 +103,7 @@ class IO:
     def secret(self, prompt: str = "", spoiler: str = "*", end_line: bool = True) -> str:
         """Read a masked (secret) string from input.
 
-        Each character is hidden with a given spoiler symbol (e.g., '*').
+        Each character is hidden with a given spoiler symbol (e.g., ``*``).
 
         Args:
             prompt: Prompt text.
@@ -111,7 +111,7 @@ class IO:
             end_line: Whether to print newline after completion.
 
         Returns:
-            Entered secret string.
+            str: The entered secret string.
         """
         sys.stdout.write(prompt)
         sys.stdout.flush()
@@ -123,7 +123,7 @@ class IO:
 
             if char in ("\r", "\n"):  # Enter pressed
                 break
-            elif char in ("\x08", "\x7f"):  # Backspace
+            if char in ("\x08", "\x7f"):  # Backspace
                 if secret:
                     sys.stdout.write("\b \b")
                     sys.stdout.flush()
