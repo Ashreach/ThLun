@@ -1,6 +1,6 @@
 - [x] Colors
 - [x] Logger
 - [ ] Task bars
-- [ ] Loaders
+- [ ] Loading indicators
 - [ ] Boofers
 - [ ] Menus
