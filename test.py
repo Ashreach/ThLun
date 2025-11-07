@@ -2,6 +2,10 @@ from ThLun import ProgressBar, Logger, IO, bprint, Fore, Back, RESET, clear_scre
 import time
 import random
 
+
+import time
+from ThLun import Logger, LogLevel, Spinner, Spinners, bprint
+
 # Logger demonstration
 logger = Logger('DEBUG')
 
@@ -13,13 +17,6 @@ logger.trace("Trace details")
 logger.error("Error occurred")
 logger.success("Operation successful")
 logger.log('INFO', "Custom log message")
-
-# IO and styling demonstration
-print("\n=== IO & Styling Demo ===")
-bprint("Bold text using bprint")
-print(f"{Fore.RED}Red text{RESET}")
-print(f"{Back.YELLOW}{Fore.BLACK}Yellow background{RESET}")
-print(f"{Fore.GREEN}Green{RESET} and {Fore.BLUE}Blue{RESET} text")
 
 # Cursor manipulation
 print("\n=== Cursor Demo ===")
@@ -49,9 +46,18 @@ while download.current < download.total or install.current < install.total or ba
     time.sleep(0.1)
 
 logger.success("All processes completed!")
-print(f"\n{Fore.CYAN}ThLun demo finished!{RESET}")
-import time
-from ThLun import Logger, LogLevel, Spinner, Spinners, bprint
+
+def print_thlun():
+    bprint(
+        "[RED]"
+"___________.__    .__                \n",
+"\__    ___/|  |__ |  |  __ __  ____  \n",
+"  |    |   |  |  \|  | |  |  \/    \ \n",
+"  |    |   |   Y  \  |_|  |  /   |  \\n",
+"  |____|   |___|  /____/____/|___|  /\n",
+"                \/                \/ [RESET]"
+    )
+
 
 
 def print_banner_spinner():
@@ -134,6 +140,7 @@ def demo_bprint_styles():
 
 
 def main():
+    print_thlun()
     print_banner_spinner()
     demo_spinner()
     print_banner_logger()
