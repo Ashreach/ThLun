@@ -8,11 +8,11 @@ from ..io import RESET, Colors, fg
 
 
 class ProgressBar:
-    """A customizable progress bar for terminal output."""
+    """A progress bar for terminal."""
     _instances = []
     _line_count = 0
 
-    def __init__(self, total: int, width: int = 50, char: str = '#', color = None, inbar: str = ' '):
+    def __init__(self, total: int, width: int = 50, char: str = '#', color = None, empty: str = ' '):
         """Initialize progress bar.
         
         Args:
@@ -20,18 +20,19 @@ class ProgressBar:
             width: Width of the progress bar in characters.
             char: Character to use for filled portions.
             color: Color name (e.g. 'GREEN'), number (0-255), or ANSI code.
+            empty: Character to use for empty portions.
         """
         self.total = total
         self.width = width
         self.char = char
+        self.empty = empty
         self.color = self._parse_color(color)
         self.current = 0
         self.start_time = time.time()
         
         ProgressBar._instances.append(self)
         self.line_index = len(ProgressBar._instances) - 1
-        
-        # Print new line for this progress bar
+
         sys.stdout.write('\n')
         sys.stdout.flush()
         ProgressBar._line_count = len(ProgressBar._instances)
@@ -80,7 +81,7 @@ class ProgressBar:
         percent = (self.current / self.total) * 100
         filled = int((self.current / self.total) * self.width)
         filled_bar = self.color + self.char * filled + RESET
-        empty_bar = ' ' * (self.width - filled)
+        empty_bar = self.empty * (self.width - filled)
         bar = filled_bar + empty_bar
         
         # Move cursor to this bar's line from bottom
