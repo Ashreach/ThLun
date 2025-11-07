@@ -19,3 +19,14 @@
   </p>
 </div>
 
+## About
+
+**ThLun** is a powerful Python CLI library for stylish and convenient terminal output. Create beautiful command-line interfaces with minimal effort.
+
+
+## Preview
+
+<div align="center">
+  <img src="./assets/preview.gif" alt="ThLun Preview" >
+</div>
+
