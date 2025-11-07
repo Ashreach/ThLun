@@ -335,7 +335,6 @@ class Style:
     ITALIC = f"{CSI}3m"
     UNDERLINE = f"{CSI}4m"
     REVERSE = f"{CSI}7m"
-    HIDDEN = f"{CSI}8m"
 
 
 RESET = f"{CSI}0m"

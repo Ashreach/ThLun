@@ -19,5 +19,6 @@ __all__ = [
     "clear_screen",
     "clear_line",
     "Cursor",
+    "Style",
     "bprint"
 ]
