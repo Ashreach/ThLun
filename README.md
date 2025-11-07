@@ -21,8 +21,7 @@
 
 ## About
 
-**ThLun** is a powerful Python CLI library for stylish and convenient terminal output. Create beautiful command-line interfaces with minimal effort.
-
+**ThLun** is a Python CLI library for stylish terminal output with ANSI colors, logging, progress bars, and spinners.
 
 ## Preview
 
@@ -30,3 +29,51 @@
   <img src="./assets/preview.gif" alt="ThLun Preview" >
 </div>
 
+## Installation
+
+```bash
+pip install thlun
+```
+
+## Quick Start
+
+```python
+from ThLun import bprint, Logger, ProgressBar, Spinner, Spinners
+import time
+
+# Basic colored output
+bprint("[GREEN]Hello world...[RESET]")
+
+# Logging with levels
+logger = Logger('DEBUG')
+logger.info("Application started")
+logger.error("Something went wrong")
+
+# Progress bar
+progress = ProgressBar(total=100)
+for i in range(100):
+    progress.update(i + 1)
+    time.sleep(0.01)
+
+# Spinner for loading
+spinner = Spinner(Spinners.dots)
+spinner.start("Loading...")
+time.sleep(2)
+spinner.stop()
+```
+
+<img src='./assets/preview.png'>
+
+## Features
+
+- **ANSI Colors**: Full color support with Fore, Back, and Style classes
+- **IO Module**: Enhanced printing with color and style support
+- **Logger**: Multi-level logging with colored output
+- **Progress Bars**: Visual progress indicators
+- **Spinners**: Loading animations with customizable styles
+- **Screen Control**: Clear screen and cursor positioning
+
+
+## Colors
+
+<img src='https://cdn.yurba.one/photos/3934.jpg'>
