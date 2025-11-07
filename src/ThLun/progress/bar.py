@@ -3,6 +3,7 @@ Progress bar implementation for ThLun library.
 """
 
 import sys
+import time
 
 
 class ProgressBar:
@@ -20,6 +21,7 @@ class ProgressBar:
         self.width = width
         self.char = char
         self.current = 0
+        self.start_time = time.time()
 
     def update(self, current: int) -> None:
         """Update progress to specific value."""
@@ -40,8 +42,12 @@ class ProgressBar:
 
     def _render(self) -> None:
         """Render the progress bar to stdout."""
+        elapsed = time.time() - self.start_time
+        minutes, seconds = divmod(int(elapsed), 60)
+        time_str = f"[{minutes:02d}:{seconds:02d}]"
+        
         percent = (self.current / self.total) * 100
         filled = int((self.current / self.total) * self.width)
         bar = self.char * filled + ' ' * (self.width - filled)
-        sys.stdout.write(f'\r[{bar}] {percent:.0f}%\033[?25l')
+        sys.stdout.write(f'\r{time_str} [{bar}] {percent:.0f}%\033[?25l')
         sys.stdout.flush()
