@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="layer1">
+    <g
+       id="g3"
+       transform="translate(-7.2144742,-13.22389)">
+      <text
+         xml:space="preserve"
+         style="font-size:288px;font-family:Colmeak;-inkscape-font-specification:Colmeak;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#00e700;fill-opacity:1;stroke-width:5.29134;stroke-dasharray:42.3307, 5.29134"
+         x="201.4733"
+         y="345.72195"
+         id="text1"><tspan
+           id="tspan1"
+           x="201.4733"
+           y="345.72195"
+           style="font-size:288px;fill:#00e700;fill-opacity:1">H</tspan></text>
+      <path
+         style="fill:#00e700;fill-opacity:1;stroke-width:5.38386;stroke-dasharray:43.0709, 5.38386"
+         d="m 142.37872,155.12653 h 74.85601 v 0 h 28.82968 v 0 h 74.35022 V 129.72195 H 143.39029 Z"
+         id="path1" />
+      <text
+         xml:space="preserve"
+         style="font-size:220.757px;font-family:Colmeak;-inkscape-font-specification:Colmeak;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#00e700;fill-opacity:1;stroke-width:5.21472;stroke-dasharray:41.7178, 5.21472"
+         x="109.7118"
+         y="371.78986"
+         id="text2"
+         transform="scale(1.0146924,0.98552034)"><tspan
+           id="tspan2"
+           x="109.7118"
+           y="371.78986"
+           style="font-size:220.757px;stroke-width:5.21472">L</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:224px;font-family:Colmeak;-inkscape-font-specification:Colmeak;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#00e700;fill-opacity:1;stroke-width:5.29134;stroke-dasharray:42.3307, 5.29134"
+         x="240.83322"
+         y="406.48578"
+         id="text3"><tspan
+           id="tspan3"
+           x="240.83322"
+           y="406.48578"
+           style="font-size:224px">U</tspan></text>
+    </g>
+  </g>
+</svg>

@@ -68,6 +68,11 @@ class ProgressBar:
         self.current = self.total
         self._render()
         
+        # Check if all progress bars are finished
+        all_finished = all(bar.current == bar.total for bar in ProgressBar._instances)
+        if all_finished:
+            sys.stdout.write('\n')
+        
         # Show cursor
         sys.stdout.write('\033[?25h')
         sys.stdout.flush()

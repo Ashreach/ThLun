@@ -2,6 +2,8 @@
   <br />
   <p>
     <h1> Ashreach/ThLun </h1>
+    <img src='./assets/banner.svg' height=300>
+    
   </p>
   <br />
   <p align="center">
