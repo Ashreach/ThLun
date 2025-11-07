@@ -8,5 +8,5 @@ fi
 
 pip install .
 clear
-echo -e "\e[36mλ ~/Projects/ThLun \e[33mpython3 test.py \e[0m ~> (test.sh)"
+echo -e "\e[36mλ ~/Ashreach/ThLun \e[33mpython3 test.py \e[0m イ (test.sh)"
 python3 test.py

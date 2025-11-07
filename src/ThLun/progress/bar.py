@@ -1,12 +1,14 @@
 """
 Progress bar implementation for ThLun library.
+
+This module defines the `ProgressBar` class, which provides progressbar
+with customizable settings.
 """
 
 import sys
 import time
-from ..io import RESET, Colors, fg
-from ..spinner import Spinners
-
+from ThLun.io  import RESET, Fore, Colors, fg
+from ThLun.spinner import Spinners
 
 class ProgressBar:
     """A progress bar for terminal."""
@@ -42,6 +44,7 @@ class ProgressBar:
         sys.stdout.write('\n')
         sys.stdout.flush()
         ProgressBar._line_count = len(ProgressBar._instances)
+
 
     def _parse_color(self, color) -> str:
         """Parse color input to ANSI code."""
@@ -87,7 +90,20 @@ class ProgressBar:
         """Render the progress bar to stdout."""
         elapsed = time.time() - self.start_time
         minutes, seconds = divmod(int(elapsed), 60)
-        time_str = f"[{minutes:02d}:{seconds:02d}]"
+
+        kwg = {
+            "RESET": RESET,
+            "time_color": Fore.LIGHT_SLATE_BLUE,
+            "color_breaks": Fore.GREY35,
+            "reset_color": Fore.GREY3,
+            "message_color": Fore.WHITE,
+            "file_color": Fore.SLATE_BLUE1,
+            "success": Fore.LIGHT_GREEN_A,
+            "line_color": Fore.MEDIUM_PURPLE1,
+            "function_color": Fore.LIGHT_SLATE_BLUE,
+        }
+
+        time_str = f'{kwg["color_breaks"]}[{kwg["RESET"]}{minutes:02d}:{seconds:02d}{kwg["color_breaks"]}]{kwg["RESET"]}'
         
         percent = (self.current / self.total) * 100
         filled = int((self.current / self.total) * self.width)
@@ -95,6 +111,7 @@ class ProgressBar:
         empty_bar = self.empty * (self.width - filled)
         bar = filled_bar + empty_bar
         
+
         # Move cursor to this bar's line from bottom
         lines_up = ProgressBar._line_count - self.line_index - 1
         if lines_up > 0:
@@ -103,17 +120,19 @@ class ProgressBar:
         # Spinner or checkmark
         if self.show_spinner:
             if self.current == self.total:
-                spinner = '✓ '
+                spinner = f'{kwg["success"]}✓{kwg["RESET"]} '
             else:
                 spinner = self.spinner_chars[self.spinner_index] + ' '
                 self.spinner_index = (self.spinner_index + 1) % len(self.spinner_chars)
         else:
             spinner = ''
         
-        sys.stdout.write(f'\r{spinner}{time_str} [{bar}] {percent:.0f}%\033[?25l')
+        sys.stdout.write(f'\r{spinner}{time_str} {kwg["color_breaks"]}[{kwg["RESET"]}{bar}{kwg["color_breaks"]}]{kwg["RESET"]} イ {percent:.0f}%\033[?25l')
         
         # Move cursor back to bottom
         if lines_up > 0:
             sys.stdout.write(f'\033[{lines_up}B')
         
         sys.stdout.flush()
+    
+
