@@ -1,9 +1,11 @@
-from ThLun import Logger, LogLevel, bprint
+from ThLun import ProgressBar
 
-log = Logger(LogLevel.DEBUG)
 
-log.info("Hello, world!")
+import time
 
-log.success("Hello, world!")
+progress = ProgressBar(100, width=40)
 
-bprint('[75]test[RESET]')
+for i in range(101):
+    progress.update(i)
+    time.sleep(0.02)
+

@@ -5,6 +5,7 @@ ThLun - A Python library for generating stylish terminal output.
 from .io import IO, bprint
 from .io.ansi import RESET, Back, Cursor, Fore, clear_line, clear_screen
 from .logger import Logger, LogLevel
+from .progress import ProgressBar
 
 __all__ = [
     "IO",
@@ -16,6 +17,7 @@ __all__ = [
     "Cursor",
     "Logger",
     "LogLevel",
-    "bprint"
+    "bprint",
+    "ProgressBar"
 ]
 __version__ = "0.1.0"
