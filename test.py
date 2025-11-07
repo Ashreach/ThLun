@@ -1,63 +1,57 @@
-from ThLun import ProgressBar, Logger, IO, bprint, Fore, Back, RESET, clear_screen, clear_line, Cursor
 import time
 import random
 
+from ThLun import (
+    ProgressBar,
+    LogLevel,
+    Spinner,
+    Spinners,
+    Logger,
+    bprint,
+)
 
-import time
-from ThLun import Logger, LogLevel, Spinner, Spinners, bprint
+def demo_progressbar():
+    download = ProgressBar(100, width=40, color="BLUE", char="█", empty="░")
+    install = ProgressBar(50, width=40, color="GREEN", char="▓", empty="░")
+    backup = ProgressBar(40, width=40, color="YELLOW", char="■", empty="·")
 
-# Logger demonstration
-logger = Logger('DEBUG')
+    while (
+        download.current < download.total
+        or install.current < install.total
+        or backup.current < backup.total
+    ):
+        if download.current < download.total and random.random() > 0.3:
+            download.increment(random.randint(1, 3))
+        if install.current < install.total and random.random() > 0.5:
+            install.increment()
+        if backup.current < backup.total and random.random() > 0.7:
+            backup.increment()
 
-logger.info("ThLun Library Demo")
-logger.warning("Warning message")
-logger.debug("Debug information")
-logger.critical("Critical error")
-logger.trace("Trace details")
-logger.error("Error occurred")
-logger.success("Operation successful")
-logger.log('INFO', "Custom log message")
+        time.sleep(0.1)
 
-# Cursor manipulation
-print("\n=== Cursor Demo ===")
-print("Moving cursor...")
-Cursor.up(1)
-print("Text inserted above")
-Cursor.down(1)
-
-# Progress bars demonstration
-logger.info("Starting processes...")
-download = ProgressBar(100, width=40, color='BLUE', char='█', empty='░')
-install = ProgressBar(50, width=40, color='GREEN', char='▓', empty='░')
-backup = ProgressBar(40, width=40, color='YELLOW', char='■', empty='·')
-
-# Simulate different process speeds
-while download.current < download.total or install.current < install.total or backup.current < backup.total:
-    # Fast process
-    if download.current < download.total and random.random() > 0.3:
-        download.increment(random.randint(1, 3))
-    # Medium process
-    if install.current < install.total and random.random() > 0.5:
-        install.increment()
-    # Slow process
-    if backup.current < backup.total and random.random() > 0.7:
-        backup.increment()
-    
-    time.sleep(0.1)
-
-logger.success("All processes completed!")
 
 def print_thlun():
     bprint(
-        "[RED]"
-"___________.__    .__                \n",
-"\__    ___/|  |__ |  |  __ __  ____  \n",
-"  |    |   |  |  \|  | |  |  \/    \ \n",
-"  |    |   |   Y  \  |_|  |  /   |  \\n",
-"  |____|   |___|  /____/____/|___|  /\n",
-"                \/                \/ [RESET]"
+        "[RED]\n"
+        "___________.__    .__                \n"
+        "\\__    ___/|  |__ |  |  __ __  ____  \n"
+        "  |    |   |  |  \\|  | |  |  \\/    \\ \n"
+        "  |    |   |   Y  \\  |_|  |  /   |  \\\n"
+        "  |____|   |___|  /____/____/|___|  /\n"
+        "                \\/                \\/ [RESET]"
     )
 
+
+def print_banner_progressbar():
+    bprint(
+        "[LIGHT_SLATE_BLUE]\n",
+        "██████╗ ██████╗  ██████╗  ██████╗ ██████╗ ███████╗███████╗███████╗    ██████╗  █████╗ ██████╗ \n",
+        "██╔══██╗██╔══██╗██╔═══██╗██╔════╝ ██╔══██╗██╔════╝██╔════╝██╔════╝    ██╔══██╗██╔══██╗██╔══██╗\n",
+        "██████╔╝██████╔╝██║   ██║██║  ███╗██████╔╝█████╗  ███████╗███████╗    ██████╔╝███████║██████╔╝\n",
+        "██╔═══╝ ██╔══██╗██║   ██║██║   ██║██╔══██╗██╔══╝  ╚════██║╚════██║    ██╔══██╗██╔══██║██╔══██╗\n",
+        "██║     ██║  ██║╚██████╔╝╚██████╔╝██║  ██║███████╗███████║███████║    ██████╔╝██║  ██║██║  ██║\n",
+        "╚═╝     ╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝[RESET]",
+    )
 
 
 def print_banner_spinner():
@@ -143,6 +137,8 @@ def main():
     print_thlun()
     print_banner_spinner()
     demo_spinner()
+    print_banner_progressbar()
+    demo_progressbar()
     print_banner_logger()
     demo_logger()
     print_banner_styles()

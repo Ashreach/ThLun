@@ -5,6 +5,7 @@ Progress bar implementation for ThLun library.
 import sys
 import time
 from ..io import RESET, Colors, fg
+from ..spinner import Spinners
 
 
 class ProgressBar:
@@ -12,7 +13,7 @@ class ProgressBar:
     _instances = []
     _line_count = 0
 
-    def __init__(self, total: int, width: int = 50, char: str = '#', color = None, empty: str = ' '):
+    def __init__(self, total: int, width: int = 50, char: str = '#', color = None, empty: str = ' ', spinner = True, spinner_type = None):
         """Initialize progress bar.
         
         Args:
@@ -21,6 +22,8 @@ class ProgressBar:
             char: Character to use for filled portions.
             color: Color name (e.g. 'GREEN'), number (0-255), or ANSI code.
             empty: Character to use for empty portions.
+            spinner: Enable/disable spinner (default: True).
+            spinner_type: Spinner type from Spinners class or None for default dots.
         """
         self.total = total
         self.width = width
@@ -29,6 +32,9 @@ class ProgressBar:
         self.color = self._parse_color(color)
         self.current = 0
         self.start_time = time.time()
+        self.show_spinner = spinner
+        self.spinner_chars = (spinner_type.chars if spinner_type else Spinners.dots.chars)
+        self.spinner_index = 0
         
         ProgressBar._instances.append(self)
         self.line_index = len(ProgressBar._instances) - 1
@@ -94,7 +100,17 @@ class ProgressBar:
         if lines_up > 0:
             sys.stdout.write(f'\033[{lines_up}A')
         
-        sys.stdout.write(f'\r{time_str} [{bar}] {percent:.0f}%\033[?25l')
+        # Spinner or checkmark
+        if self.show_spinner:
+            if self.current == self.total:
+                spinner = '✓ '
+            else:
+                spinner = self.spinner_chars[self.spinner_index] + ' '
+                self.spinner_index = (self.spinner_index + 1) % len(self.spinner_chars)
+        else:
+            spinner = ''
+        
+        sys.stdout.write(f'\r{spinner}{time_str} [{bar}] {percent:.0f}%\033[?25l')
         
         # Move cursor back to bottom
         if lines_up > 0:
