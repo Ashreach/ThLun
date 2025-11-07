@@ -8,7 +8,7 @@ import sys
 import time
 from threading import Event, Lock, Thread
 
-from .spinners import SpinnerChars, Spinners
+from .spinners import SpinnerChars
 
 
 class Spinner:
@@ -128,15 +128,3 @@ class Spinner:
         sys.stdout.write(f"\r\033[K{message}\n")
         sys.stdout.flush()
         self._cursor_show()
-
-
-if __name__ == "__main__":
-    spinner = Spinner(Spinners.braille, speed=0.07)
-    spinner.start("Initializing...")
-    time.sleep(1)
-    for i in range(1, 6):
-        spinner.update(spinner=Spinners.circle, message=f"Processing step {i}/5...")
-        time.sleep(0.7)
-    spinner.update(message="", spinner=Spinners.dots, speed=0.05)
-    time.sleep(1.5)
-    spinner.stop("✓ Complete")
