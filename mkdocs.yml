@@ -1,0 +1,93 @@
+site_name: "ThLun Docs"
+site_description: "CLI/TUI Python-бібліотека"
+repo_url: "https://github.com/Ashreach/ThLun"
+repo_name: "Ashreach/ThLun"
+site_dir: "site"
+edit_uri: edit/main/docs/
+copyright: "© 2025 Ashreach"
+
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+
+nav:
+  - Home: index.md
+  - Reference:
+    - IO: reference/io.md
+    - Logger: reference/logger.md
+    - Spinner: reference/spinner.md
+    - Progress Bar: reference/progressbar.md
+
+theme:
+  name: material
+  features:
+    - content.code.copy
+    - content.code.annotate
+    - navigation.tabs
+    - navigation.sections
+    - navigation.instant
+    - search.suggest
+    - toc.follow
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/weather-night
+        name: Dark mode
+    - scheme: slate
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/weather-sunny
+        name: Light mode
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Ashreach/ThLun
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/thlun/
+
+plugins:
+  - search
+  - autorefs
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            backlinks: tree
+            docstring_style: google
+            merge_init_into_class: true
+            separate_signature: true
+            show_signature_annotations: true
+            show_root_heading: true
+            show_symbol_type_toc: true
+            show_symbol_type_heading: true
+            show_source: false
+            show_root_full_path: false
+            filters: ["!^_"]
+            parameter_headings: true
+            summary: true
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+  - minify:
+      minify_html: false
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - footnotes
+  - pymdownx.details
+  - pymdownx.highlight:
+      pygments_lang_class: true
+  - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - toc:
+      permalink: "¤"
