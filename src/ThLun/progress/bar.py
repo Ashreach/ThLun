@@ -9,7 +9,7 @@ import sys
 import time
 from typing import Optional, Union
 
-from ThLun.io import RESET, Colors, Fore, fg
+from ThLun.io import RESET, Colors, Fore, fg_replacer
 from ThLun.spinner import Spinners
 
 
@@ -64,10 +64,10 @@ class ProgressBar:
             return ""
         if isinstance(color, str):
             if hasattr(Colors, color.upper()):
-                return fg(getattr(Colors, color.upper()))
+                return fg_replacer(getattr(Colors, color.upper()))
             return color
         if isinstance(color, int):
-            return fg(color)
+            return fg_replacer(color)
         return str(color)
 
     def update(self, current: int) -> None:

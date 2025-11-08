@@ -268,7 +268,7 @@ class Colors:
     GREY93 = 255
 
 
-def fg(code: int) -> str:
+def fg_replacer(code: int) -> str:
     """
     Return ANSI escape sequence for 256-color foreground.
 
@@ -283,7 +283,7 @@ def fg(code: int) -> str:
     return f"{CSI}38;5;{code}m"
 
 
-def bg(code: int) -> str:
+def bg_replacer(code: int) -> str:
     """
     Return ANSI escape sequence for 256-color background.
 
@@ -307,7 +307,7 @@ class Fore:
     """
     for name in dir(Colors):
         if not name.startswith("_"):
-            locals()[name] = fg(getattr(Colors, name))
+            locals()[name] = fg_replacer(getattr(Colors, name))
 
 
 class Back:
@@ -319,13 +319,13 @@ class Back:
     """
     for name in dir(Colors):
         if not name.startswith("_"):
-            locals()[name] = bg(getattr(Colors, name))
+            locals()[name] = bg_replacer(getattr(Colors, name))
 
 
 for name, value in vars(Colors).items():
     if not name.startswith("_"):
-        setattr(Fore, name.upper(), fg(value))
-        setattr(Back, name.upper(), bg(value))
+        setattr(Fore, name.upper(), fg_replacer(value))
+        setattr(Back, name.upper(), bg_replacer(value))
 
 
 class Style:
