@@ -20,7 +20,7 @@ __all__ = [
     "Logger",
     "LogLevel",
     "bprint",
-    "ProgressBar"
+    "ProgressBar",
     "Spinner",
     "Spinners"
 ]
