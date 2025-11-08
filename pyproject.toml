@@ -6,7 +6,7 @@ authors = [
   { name = "Ashreach" }
 ] 
 maintainers = [
-  { name = "IDegchan" },
+  { name = "Netronis" },
   { name = "Rastgame" }
 ]
 readme = "README.md"
