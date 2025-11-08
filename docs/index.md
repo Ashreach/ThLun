@@ -2,7 +2,7 @@
   <br />
   <p>
     <h1> Ashreach/ThLun </h1>
-    <img src='./assets/banner.svg' height=300>
+    <img src='https://github.com/Ashreach/ThLun/assets/banner.svg' height=300>
     
   </p>
   <br />
@@ -26,7 +26,7 @@
 ## Preview
 
 <div align="center">
-  <img src="./assets/preview.gif" alt="ThLun Preview" >
+  <img src="https://github.com/Ashreach/ThLun/assets/preview.gif" alt="ThLun Preview" >
 </div>
 
 ## Installation
@@ -62,7 +62,7 @@ time.sleep(2)
 spinner.stop()
 ```
 
-<img src='./assets/preview.png'>
+<img src='https://github.com/Ashreach/ThLun/assets/preview.png'>
 
 ## Features
 
