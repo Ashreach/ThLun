@@ -13,7 +13,7 @@ license = "Apache-2.0"
 
 dependencies = []
 
-[dependency-groups]
+[project.optional-dependencies]
 dev = [
   "pytest>=8.4.2",
   "ruff>=0.6.9",

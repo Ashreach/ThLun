@@ -17,6 +17,7 @@ nav:
     - IO: reference/io.md
     - Logger: reference/logger.md
     - Spinner: reference/spinner.md
+    - Progress Bar: reference/progressbar.md
 
 theme:
   name: material

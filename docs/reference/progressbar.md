@@ -1,3 +1,3 @@
 # Progressbar Reference
 
-::: ThLun.progressbar
+::: ThLun.progress
