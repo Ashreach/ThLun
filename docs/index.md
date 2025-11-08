@@ -76,4 +76,4 @@ spinner.stop()
 
 ## Colors
 
-<img src='https://cdn.yurba.one/photos/3934.jpg'>
+<img src='https://thlun.ashreach.dev/assets/colors.jpg'>
