@@ -1,12 +1,15 @@
 """
 ANSI colors for ThLun library.
-Contains a class with ANSI escape code for a range of colors.
+
+This module provides ANSI escape codes for foreground and background colors,
+as well as text styles. It supports 256-color terminals.
 """
 
 CSI = "\033["
 
 
 class Colors:
+    """Named ANSI color codes (0-255)."""
     BLACK = 0
     MAROON = 1
     GREEN = 2
@@ -265,30 +268,73 @@ class Colors:
     GREY93 = 255
 
 
-def fg(code):
+def fg_replacer(code: int) -> str:
     """
-    Colors at this link: https://surl.li/alrkig
+    Return ANSI escape sequence for 256-color foreground.
+
+    Color codes: [View palette](https://cdn.yurba.one/photos/3934.jpg)
+
+    Args:
+        code (int): Color code (0-255).
+
+    Returns:
+        str: ANSI escape code for foreground color.
     """
     return f"{CSI}38;5;{code}m"
 
 
-def bg(code):
+def bg_replacer(code: int) -> str:
     """
-    Colors at this link: https://surl.li/alrkig
+    Return ANSI escape sequence for 256-color background.
+
+    Color codes: [View palette](https://cdn.yurba.one/photos/3934.jpg)
+
+    Args:
+        code (int): Color code (0-255).
+
+    Returns:
+        str: ANSI escape code for background color.
     """
     return f"{CSI}48;5;{code}m"
 
 
-class Fore256:
+class Fore:
+    """
+    Foreground colors using ANSI 256-color codes.
+
+    Usage:
+        print(Fore.RED + "Hello" + RESET)
+    """
     for name in dir(Colors):
         if not name.startswith("_"):
-            locals()[name] = fg(getattr(Colors, name))
+            locals()[name] = fg_replacer(getattr(Colors, name))
 
 
-class Back256:
+class Back:
+    """
+    Background colors using ANSI 256-color codes.
+
+    Usage:
+        print(Back.BLUE + "Hello" + RESET)
+    """
     for name in dir(Colors):
         if not name.startswith("_"):
-            locals()[name] = bg(getattr(Colors, name))
+            locals()[name] = bg_replacer(getattr(Colors, name))
+
+
+for name, value in vars(Colors).items():
+    if not name.startswith("_"):
+        setattr(Fore, name.upper(), fg_replacer(value))
+        setattr(Back, name.upper(), bg_replacer(value))
+
+
+class Style:
+    """ANSI text styles."""
+    BOLD = f"{CSI}1m"
+    DIM = f"{CSI}2m"
+    ITALIC = f"{CSI}3m"
+    UNDERLINE = f"{CSI}4m"
+    REVERSE = f"{CSI}7m"
 
 
 RESET = f"{CSI}0m"

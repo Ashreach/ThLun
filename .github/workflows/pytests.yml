@@ -2,7 +2,7 @@ name: Pytest
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
   pull_request:
     branches: [ "main" ]
 
@@ -26,6 +26,10 @@ jobs:
     - name: Sync dependencies (with dev extras)
       run: |
         uv sync --extra dev
+
+    - name: Install package in editable mode
+      run: |
+        uv pip install -e .
 
     - name: Run tests with pytest
       run: |
