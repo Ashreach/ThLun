@@ -48,6 +48,7 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
+testpaths = ["tests"]
 addopts = "-v --tb=short --strict-markers"
 markers = [
   "slow: marks tests as slow",

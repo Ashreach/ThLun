@@ -33,7 +33,7 @@ jobs:
 
     - name: Run tests with pytest
       run: |
-        uv run pytest tests/ --maxfail=1 --disable-warnings -q
+        uv run pytest --maxfail=1 --disable-warnings -q
 
     - name: Upload test results (optional)
       if: success() || failure()
