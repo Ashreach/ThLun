@@ -1,0 +1,35 @@
+name: Deploy MkDocs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install MkDocs and plugins
+        run: |
+          pip install mkdocs>=1.6.1 \
+                      mkdocs-autorefs>=1.4.3 \
+                      mkdocs-git-revision-date-localized-plugin>=1.5.0 \
+                      mkdocs-material>=9.6.23 \
+                      mkdocs-minify-plugin>=0.8.0 \
+                      "mkdocstrings[python]>=0.30.1" \
+                      ghp-import
+
+      - name: Build MkDocs site
+        run: mkdocs build
+
+      - name: Deploy to GitHub Pages
+        run: ghp-import -n -p -f site
