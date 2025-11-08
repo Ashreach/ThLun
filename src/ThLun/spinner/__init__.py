@@ -1,4 +1,4 @@
 from .spinner import Spinner
-from .spinners import Spinners
+from .spinners import Spinners, SpinnerChars
 
-__all__ = ["Spinner", "Spinners"]
+__all__ = ["Spinner", "Spinners", "SpinnerChars"]
