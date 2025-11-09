@@ -1,12 +1,15 @@
 <div align="center">
-  <br />
   <p>
-    <h1> Ashreach/ThLun </h1>
     <img src='https://thlun.ashreach.dev/assets/banner.svg' height=300>
-    
   </p>
   <br />
   <p align="center">
+    <a href="https://pypi.org/project/thlun/">
+      <img src="https://img.shields.io/pypi/v/thlun?colorA=363a4f&colorB=a6da95&style=for-the-badge" alt="PyPI version"/>
+    </a>
+    <a href="https://pepy.tech/project/thlun">
+      <img src="https://static.pepy.tech/personalized-badge/thlun?period=total&units=international_system&left_color=363a4f&right_color=b7bdf8&left_text=Downloads" alt="Downloads"/>
+    </a>
     <a href="https://github.com/Ashreach/ThLun/stargazers">
       <img src="https://img.shields.io/github/stars/Ashreach/ThLun?colorA=363a4f&colorB=b7bdf8&style=for-the-badge" alt="GitHub stars"/>
     </a>
@@ -17,6 +20,7 @@
       <img src="https://img.shields.io/github/contributors/Ashreach/ThLun?colorA=363a4f&colorB=a6da95&style=for-the-badge" alt="GitHub contributors"/>
     </a>
   </p>
+  <br>
 </div>
 
 ## About
