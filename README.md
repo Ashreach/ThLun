@@ -7,9 +7,6 @@
     <a href="https://pypi.org/project/thlun/">
       <img src="https://img.shields.io/pypi/v/thlun?colorA=363a4f&colorB=a6da95&style=for-the-badge" alt="PyPI version"/>
     </a>
-    <a href="https://pepy.tech/project/thlun">
-      <img src="https://static.pepy.tech/personalized-badge/thlun?period=total&units=international_system&left_color=363a4f&right_color=b7bdf8&left_text=Downloads" alt="Downloads"/>
-    </a>
     <a href="https://github.com/Ashreach/ThLun/stargazers">
       <img src="https://img.shields.io/github/stars/Ashreach/ThLun?colorA=363a4f&colorB=b7bdf8&style=for-the-badge" alt="GitHub stars"/>
     </a>
@@ -18,6 +15,10 @@
     </a>
     <a href="https://github.com/Ashreach/ThLun/contributors">
       <img src="https://img.shields.io/github/contributors/Ashreach/ThLun?colorA=363a4f&colorB=a6da95&style=for-the-badge" alt="GitHub contributors"/>
+    </a>
+    <br>
+    <a href="https://pepy.tech/project/thlun">
+      <img src="https://static.pepy.tech/badge/thlun?colorA=363a4f&colorB=f5bde6&style=for-the-badge" alt="Downloads"/>
     </a>
   </p>
   <br>
