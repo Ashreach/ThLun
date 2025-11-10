@@ -97,15 +97,25 @@ class Logger:
     def _ensure_handler():
         """Ensure a console handler with custom formatter exists.
 
-        Adds a `StreamHandler` with `Formatter` if no handlers are present
-        in the root logger. Ensures colored output for all logs.
+        Guarantees that at least one StreamHandler with ThLun Formatter
+        is attached to the root logger. If a handler exists but lacks
+        a formatter, the custom Formatter is applied automatically.
         """
         root = logging.getLogger()
-        if not root.handlers:
+        handler_exists = False
+
+        for h in root.handlers:
+            handler_exists = True
+            if not isinstance(h.formatter, Formatter):
+                h.setFormatter(Formatter())
+
+        if not handler_exists:
             handler = logging.StreamHandler(sys.stdout)
             handler.setFormatter(Formatter())
             root.addHandler(handler)
-            root.setLevel(Logger._global_level)
+
+        root.setLevel(Logger._global_level)
+
 
     # ----------------------------------------------------------------
     # Static setup method
