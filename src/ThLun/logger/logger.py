@@ -1,164 +1,215 @@
 """
-Logger module for the ThLun library.
+ThLun-style colorized logging built on top of Python's standard logging.
 
-This module defines the `Logger` class, which provides colorful, structured logging
-with customizable logging levels.
+This module provides a colorized logger that integrates ThLun’s design
+with Python’s built-in `logging` module. It supports custom levels,
+colored output, and full compatibility with standard logging handlers.
 """
 
 import datetime
 import inspect
+import logging
+import sys
+from typing import Any
 
 from ThLun.io import RESET, Fore
+
 from .types import LogLevel
 
 
-class Logger:
-    """Customizable logger for displaying formatted messages with colors."""
+# --------------------------------------------------------------------
+# Custom color formatter
+# --------------------------------------------------------------------
+class Formatter(logging.Formatter):
+    """Colorful ThLun-style formatter for log records.
 
-    def __init__(self, log_level: LogLevel):
-        """
-        Initialize a Logger instance.
+    This formatter adds ThLun-style coloring and formatting to each log message.
+    It displays time, level, filename, function name, and message content
+    in a consistent and colorized layout.
+    """
 
-        Args:
-            log_level (LogLevel): The minimum log level. Messages with equal or higher
-                level will be printed.
-        """
-        self.log_level = log_level
-
-    def log(self, log_level: LogLevel | str, message: str, print_function: bool = False):
-        """
-        Output a message with the given log level.
+    def format(self, record: logging.LogRecord) -> str:
+        """Format a log record with colors and custom layout.
 
         Args:
-            log_level (LogLevel | str): The log level of the message.
-            message (str): The text to log.
-            print_function (bool): If True, includes the function name where the log
-                was called.
-        """
-        if log_level <= self.log_level:
-            self._output(message, log_level, print_function)
+            record (logging.LogRecord): The log record to format.
 
-    @classmethod
-    def _output(cls, message: str, log_level: LogLevel, print_function: bool):
+        Returns:
+            str: The fully formatted and colorized log message.
         """
-        Format and print a log message.
+        level_map = {
+            "TRACE": LogLevel.TRACE,
+            "DEBUG": LogLevel.DEBUG,
+            "INFO": LogLevel.INFO,
+            "SUCCESS": LogLevel.SUCCESS,
+            "WARNING": LogLevel.WARNING,
+            "ERROR": LogLevel.ERROR,
+            "CRITICAL": LogLevel.CRITICAL,
+        }
+        lvl = level_map.get(record.levelname, LogLevel.INFO)
 
-        Args:
-            message (str): The message text.
-            log_level (LogLevel): The log level for this message.
-            print_function (bool): Whether to show the function name in output.
-        """
         stack = inspect.stack()
-        frame = next(
-            (f for f in stack if "logger.py" not in f.filename),
-            stack[-1],
-        )
+        frame = next((f for f in stack if "logging" not in f.filename), stack[-1])
         filename = frame.filename.split("/")[-1]
         line = frame.lineno
         function = frame.function
+        asctime = datetime.datetime.now().strftime("%H:%M:%S.%f")[:-4]
 
-        base_line = (
-            "{time_color}{asctime} {RESET}"
-            + "{color_breaks}[{log_level_color}{log_level_name}{color_breaks}] {RESET}"
-            + "{file_color}{filename}{color_breaks}:{line_color}{line}"
-            + "{function_color}{function_line} {RESET}"
-            + "{reset_color}イ{message_color}{message_text}"
+        formatted = (
+            f"{Fore.LIGHT_SLATE_BLUE}{asctime}{RESET}"
+            f"{Fore.GREY35}[{lvl.color}{lvl.name}{Fore.GREY35}]{RESET} "
+            f"{Fore.SLATE_BLUE1}{filename}{Fore.GREY35}:{Fore.MEDIUM_PURPLE1}{line}"
+            f"{Fore.LIGHT_SLATE_BLUE}:{function}{RESET} "
+            f"{Fore.GREY3}イ{Fore.WHITE}{record.getMessage()}{RESET}"
         )
 
-        kwargs = {
-            "RESET": RESET,
-            "time_color": Fore.LIGHT_SLATE_BLUE,
-            "asctime": datetime.datetime.now().strftime("%H:%M:%S.%f")[:-4],
-            "color_breaks": Fore.GREY35,
-            "log_level_color": log_level.color,
-            "log_level_name": log_level.name,
-            "reset_color": Fore.GREY3,
-            "message_color": Fore.WHITE,
-            "message_text": message,
-            "file_color": Fore.SLATE_BLUE1,
-            "line_color": Fore.MEDIUM_PURPLE1,
-            "function_color": Fore.LIGHT_SLATE_BLUE,
-            "filename": filename,
-            "line": line,
-            "function_line": f":{function}" if print_function else "",
-        }
+        return formatted
 
-        print(base_line.format(**kwargs))
 
-    # Static logging methods
-    @staticmethod
-    def trace(message: str, print_function: bool = False):
-        """
-        Log a message at TRACE level.
+# --------------------------------------------------------------------
+# Main Logger wrapper
+# --------------------------------------------------------------------
+class Logger:
+    """Drop-in enhanced logger with ThLun color formatting.
+
+    A wrapper around Python's `logging` module providing ThLun-style colorful
+    output and additional convenience methods for different log levels.
+
+    Attributes:
+        _global_level (int): Global minimum logging level applied to all loggers.
+        logger (logging.Logger): Internal standard logger instance.
+    """
+
+    _global_level = logging.INFO
+
+    def __init__(self, name: str = "ThLun", level: int | None = None):
+        """Initialize the Logger instance.
 
         Args:
-            message (str): The message text.
-            print_function (bool): Whether to include the calling function name.
+            name (str, optional): The logger name. Defaults to "ThLun".
+            level (int | None, optional): Logging level override. Defaults to global level.
         """
-        Logger(LogLevel.TRACE).log(LogLevel.TRACE, message, print_function)
+        self.logger = logging.getLogger(name)
+        self.logger.setLevel(level or Logger._global_level)
+        self._ensure_handler()
 
     @staticmethod
-    def debug(message: str, print_function: bool = False):
+    def _ensure_handler():
+        """Ensure a console handler with custom formatter exists.
+
+        Guarantees that at least one StreamHandler with ThLun Formatter
+        is attached to the root logger. If a handler exists but lacks
+        a formatter, the custom Formatter is applied automatically.
         """
-        Log a message at DEBUG level.
+        root = logging.getLogger()
+        handler_exists = False
+
+        for h in root.handlers:
+            handler_exists = True
+            if not isinstance(h.formatter, Formatter):
+                h.setFormatter(Formatter())
+
+        if not handler_exists:
+            handler = logging.StreamHandler(sys.stdout)
+            handler.setFormatter(Formatter())
+            root.addHandler(handler)
+
+        root.setLevel(Logger._global_level)
+
+
+    # ----------------------------------------------------------------
+    # Static setup method
+    # ----------------------------------------------------------------
+    @classmethod
+    def set_level(cls, log_level: LogLevel):
+        """Set the global minimum logging level.
 
         Args:
-            message (str): The message text.
-            print_function (bool): Whether to include the calling function name.
+            log_level (LogLevel): The minimum log level to apply globally.
         """
-        Logger(LogLevel.DEBUG).log(LogLevel.DEBUG, message, print_function)
+        cls._global_level = log_level.height
+        logging.getLogger().setLevel(log_level.height)
 
-    @staticmethod
-    def info(message: str, print_function: bool = False):
-        """
-        Log a message at INFO level.
-
-        Args:
-            message (str): The message text.
-            print_function (bool): Whether to include the calling function name.
-        """
-        Logger(LogLevel.INFO).log(LogLevel.INFO, message, print_function)
-
-    @staticmethod
-    def success(message: str, print_function: bool = False):
-        """
-        Log a message at SUCCESS level.
+    # ----------------------------------------------------------------
+    # Unified logging call
+    # ----------------------------------------------------------------
+    def _log(self, level: int, message: str, *args: Any, **kwargs: Any):
+        """Log a message using the standard logging mechanism.
 
         Args:
-            message (str): The message text.
-            print_function (bool): Whether to include the calling function name.
+            level (int): The numeric level for the log record.
+            message (str): The message text to log.
+            *args: Additional positional arguments passed to `logging.Logger.log`.
+            **kwargs: Additional keyword arguments passed to `logging.Logger.log`.
         """
-        Logger(LogLevel.SUCCESS).log(LogLevel.SUCCESS, message, print_function)
+        self.logger.log(level, message, *args, **kwargs)
 
-    @staticmethod
-    def warning(message: str, print_function: bool = False):
-        """
-        Log a message at WARNING level.
+    # ----------------------------------------------------------------
+    # Level-specific instance methods
+    # ----------------------------------------------------------------
+    def trace(self, message: str):
+        """Log a message at TRACE level (custom)."""
+        self._log(10, message)
 
-        Args:
-            message (str): The message text.
-            print_function (bool): Whether to include the calling function name.
-        """
-        Logger(LogLevel.WARNING).log(LogLevel.WARNING, message, print_function)
+    def debug(self, message: str):
+        """Log a message at DEBUG level."""
+        self._log(logging.DEBUG, message)
 
-    @staticmethod
-    def error(message: str, print_function: bool = False):
-        """
-        Log a message at ERROR level.
+    def info(self, message: str):
+        """Log a message at INFO level."""
+        self._log(logging.INFO, message)
 
-        Args:
-            message (str): The message text.
-            print_function (bool): Whether to include the calling function name.
-        """
-        Logger(LogLevel.ERROR).log(LogLevel.ERROR, message, print_function)
+    def success(self, message: str):
+        """Log a message at SUCCESS level (custom level between INFO and WARNING)."""
+        logging.addLevelName(25, "SUCCESS")
+        self._log(25, message)
 
-    @staticmethod
-    def critical(message: str, print_function: bool = False):
-        """
-        Log a message at CRITICAL level.
+    def warning(self, message: str):
+        """Log a message at WARNING level."""
+        self._log(logging.WARNING, message)
 
-        Args:
-            message (str): The message text.
-            print_function (bool): Whether to include the calling function name.
-        """
-        Logger(LogLevel.CRITICAL).log(LogLevel.CRITICAL, message, print_function)
+    def error(self, message: str):
+        """Log a message at ERROR level."""
+        self._log(logging.ERROR, message)
+
+    def critical(self, message: str):
+        """Log a message at CRITICAL level."""
+        self._log(logging.CRITICAL, message)
+
+    # ----------------------------------------------------------------
+    # Class-level shorthands for global logging
+    # ----------------------------------------------------------------
+    @classmethod
+    def trace_(cls, message: str):
+        """Static TRACE log call using a global logger."""
+        cls("ThLun").trace(message)
+
+    @classmethod
+    def debug_(cls, message: str):
+        """Static DEBUG log call using a global logger."""
+        cls("ThLun").debug(message)
+
+    @classmethod
+    def info_(cls, message: str):
+        """Static INFO log call using a global logger."""
+        cls("ThLun").info(message)
+
+    @classmethod
+    def success_(cls, message: str):
+        """Static SUCCESS log call using a global logger."""
+        cls("ThLun").success(message)
+
+    @classmethod
+    def warning_(cls, message: str):
+        """Static WARNING log call using a global logger."""
+        cls("ThLun").warning(message)
+
+    @classmethod
+    def error_(cls, message: str):
+        """Static ERROR log call using a global logger."""
+        cls("ThLun").error(message)
+
+    @classmethod
+    def critical_(cls, message: str):
+        """Static CRITICAL log call using a global logger."""
+        cls("ThLun").critical(message)

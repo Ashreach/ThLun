@@ -1,9 +1,6 @@
 <div align="center">
-  <br />
   <p>
-    <h1> Ashreach/ThLun </h1>
     <img src='https://thlun.ashreach.dev/assets/banner.svg' height=300>
-    
   </p>
   <br />
   <p align="center">
@@ -16,7 +13,15 @@
     <a href="https://github.com/Ashreach/ThLun/contributors">
       <img src="https://img.shields.io/github/contributors/Ashreach/ThLun?colorA=363a4f&colorB=a6da95&style=for-the-badge" alt="GitHub contributors"/>
     </a>
+    <a href="https://pypi.org/project/thlun/">
+      <img src="https://img.shields.io/pypi/v/thlun?colorA=363a4f&colorB=a6da95&style=for-the-badge" alt="PyPI version"/>
+    </a>
+    <br>
+    <a href="https://pepy.tech/project/thlun">
+      <img src="https://static.pepy.tech/badge/thlun?colorA=363a4f&colorB=f5bde6&style=for-the-badge" alt="Downloads"/>
+    </a>
   </p>
+  <br>
 </div>
 
 ## About
