@@ -133,21 +133,3 @@ class Logger:
     def warning(self, message: str): self._log(logging.WARNING, message)
     def error(self, message: str): self._log(logging.ERROR, message)
     def critical(self, message: str): self._log(logging.CRITICAL, message)
-
-    # ----------------------------------------------------------------
-    # Class-level shorthands for global logging
-    # ----------------------------------------------------------------
-    @classmethod
-    def trace_(cls, message: str): cls().trace(message)
-    @classmethod
-    def debug_(cls, message: str): cls().debug(message)
-    @classmethod
-    def info_(cls, message: str): cls().info(message)
-    @classmethod
-    def success_(cls, message: str): cls().success(message)
-    @classmethod
-    def warning_(cls, message: str): cls().warning(message)
-    @classmethod
-    def error_(cls, message: str): cls().error(message)
-    @classmethod
-    def critical_(cls, message: str): cls().critical(message)
