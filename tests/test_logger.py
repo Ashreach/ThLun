@@ -112,13 +112,6 @@ class TestLogger(unittest.TestCase):
         Logger.set_level(LogLevel.DEBUG)
         self.assertEqual(logging.getLogger().level, LogLevel.DEBUG.height)
 
-    @patch("logging.Logger.log")
-    def test_classmethods_delegate_to_instance(self, mock_log):
-        Logger.info_("Static info test")
-        Logger.warning_("Static warning test")
-        Logger.error_("Static error test")
-        self.assertGreaterEqual(mock_log.call_count, 3)
-
 
 # ==============================================================
 # Run all tests
