@@ -37,6 +37,10 @@ class Formatter(logging.Formatter):
         }
         lvl = level_map.get(record.levelname, LogLevel.INFO)
 
+<<<<<<< HEAD
+=======
+        # Використовуємо дані LogRecord для точного місця виклику
+>>>>>>> 5602f0dc28c5883447a5dd42515a3281081e1f46
         filename = os.path.basename(record.pathname)
         line = record.lineno
         function = record.funcName
@@ -85,8 +89,13 @@ class Logger:
         else:
             lvl = Logger._global_level
 
+<<<<<<< HEAD
         self.logger.setLevel(lvl-5)
+=======
+        self.logger.setLevel(lvl)
+>>>>>>> 5602f0dc28c5883447a5dd42515a3281081e1f46
         self._ensure_handler()
+
 
     @staticmethod
     def _ensure_handler():
@@ -102,6 +111,10 @@ class Logger:
             handler = logging.StreamHandler(sys.stdout)
             handler.setFormatter(Formatter())
             root.addHandler(handler)
+<<<<<<< HEAD
+=======
+        root.setLevel(Logger._global_level)
+>>>>>>> 5602f0dc28c5883447a5dd42515a3281081e1f46
 
     @classmethod
     def set_level(cls, log_level: LogLevel):
