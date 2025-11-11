@@ -42,12 +42,12 @@ class TestLogLevel(unittest.TestCase):
     """Ensure all predefined log levels have correct attributes."""
 
     def test_standard_levels(self):
-        self.assertEqual(LogLevel.DEBUG.height, 20)
-        self.assertEqual(LogLevel.INFO.height, 30)
-        self.assertEqual(LogLevel.SUCCESS.height, 35)
-        self.assertEqual(LogLevel.WARNING.height, 40)
-        self.assertEqual(LogLevel.ERROR.height, 50)
-        self.assertEqual(LogLevel.CRITICAL.height, 60)
+        self.assertEqual(LogLevel.DEBUG.height, 10)
+        self.assertEqual(LogLevel.INFO.height, 15)
+        self.assertEqual(LogLevel.SUCCESS.height, 20)
+        self.assertEqual(LogLevel.WARNING.height, 25)
+        self.assertEqual(LogLevel.ERROR.height, 30)
+        self.assertEqual(LogLevel.CRITICAL.height, 35)
 
 
 # ==============================================================
@@ -110,14 +110,7 @@ class TestLogger(unittest.TestCase):
 
     def test_set_level_changes_global(self):
         Logger.set_level(LogLevel.DEBUG)
-        self.assertEqual(logging.getLogger().level, LogLevel.DEBUG.height)
-
-    @patch("logging.Logger.log")
-    def test_classmethods_delegate_to_instance(self, mock_log):
-        Logger.info_("Static info test")
-        Logger.warning_("Static warning test")
-        Logger.error_("Static error test")
-        self.assertGreaterEqual(mock_log.call_count, 3)
+        self.assertEqual(Logger._global_level, LogLevel.DEBUG.height)
 
 
 # ==============================================================

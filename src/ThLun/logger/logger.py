@@ -85,7 +85,7 @@ class Logger:
         else:
             lvl = Logger._global_level
 
-        self.logger.setLevel(lvl)
+        self.logger.setLevel(lvl-5)
         self._ensure_handler()
 
     @staticmethod

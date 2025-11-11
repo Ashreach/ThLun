@@ -58,10 +58,10 @@ class LogLevelData:
 class LogLevel:
     """Defines standard logging levels with associated color and hierarchy."""
 
-    TRACE = LogLevelData(name="TRACE", color=Fore.CYAN1, height=10)
-    DEBUG = LogLevelData(name="DEBUG", color=Fore.GREEN, height=20)
-    INFO = LogLevelData(name="INFO", color=Fore.STEEL_BLUE1_A, height=30)
-    SUCCESS = LogLevelData(name="SUCCESS", color=Fore.LIGHT_GREEN_A, height=35)
-    WARNING = LogLevelData(name="WARN", color=Fore.YELLOW, height=40)
-    ERROR = LogLevelData(name="ERROR", color=Fore.RED, height=50)
-    CRITICAL = LogLevelData(name="CRITICAL", color=Fore.DEEP_PINK4_C, height=60)
+    TRACE = LogLevelData(name="TRACE", color=Fore.CYAN1, height=5)
+    DEBUG = LogLevelData(name="DEBUG", color=Fore.GREEN, height=10)
+    INFO = LogLevelData(name="INFO", color=Fore.STEEL_BLUE1_A, height=15)
+    SUCCESS = LogLevelData(name="SUCCESS", color=Fore.LIGHT_GREEN_A, height=20)
+    WARNING = LogLevelData(name="WARN", color=Fore.YELLOW, height=25)
+    ERROR = LogLevelData(name="ERROR", color=Fore.RED, height=30)
+    CRITICAL = LogLevelData(name="CRITICAL", color=Fore.DEEP_PINK4_C, height=35)
