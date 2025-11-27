@@ -13,7 +13,6 @@ import os
 from typing import Any
 
 from ThLun.io import RESET, Fore
-
 from .types import LogLevel
 
 
@@ -38,7 +37,6 @@ class Formatter(logging.Formatter):
         }
         lvl = level_map.get(record.levelname, LogLevel.INFO)
 
-        # Використовуємо дані LogRecord для точного місця виклику
         filename = os.path.basename(record.pathname)
         line = record.lineno
         function = record.funcName
@@ -87,7 +85,7 @@ class Logger:
         else:
             lvl = Logger._global_level
 
-        self.logger.setLevel(lvl)
+        self.logger.setLevel(lvl-5)
         self._ensure_handler()
 
 
@@ -95,6 +93,7 @@ class Logger:
     def _ensure_handler():
         """Ensure a console handler with ThLun Formatter exists."""
         root = logging.getLogger()
+        root.setLevel(logging.NOTSET)
         handler_exists = False
         for h in root.handlers:
             handler_exists = True
@@ -104,7 +103,6 @@ class Logger:
             handler = logging.StreamHandler(sys.stdout)
             handler.setFormatter(Formatter())
             root.addHandler(handler)
-        root.setLevel(Logger._global_level)
 
     @classmethod
     def set_level(cls, log_level: LogLevel):
@@ -115,7 +113,7 @@ class Logger:
             log_level (LogLevel): Minimum log level applied globally.
         """
         cls._global_level = log_level.height
-        logging.getLogger().setLevel(log_level.height)
+        logging.getLogger().setLevel(logging.NOTSET)
 
     def _log(self, level: int, message: str, *args: Any, **kwargs: Any):
         """Internal log call using standard logging."""
@@ -133,21 +131,3 @@ class Logger:
     def warning(self, message: str): self._log(logging.WARNING, message)
     def error(self, message: str): self._log(logging.ERROR, message)
     def critical(self, message: str): self._log(logging.CRITICAL, message)
-
-    # ----------------------------------------------------------------
-    # Class-level shorthands for global logging
-    # ----------------------------------------------------------------
-    @classmethod
-    def trace_(cls, message: str): cls().trace(message)
-    @classmethod
-    def debug_(cls, message: str): cls().debug(message)
-    @classmethod
-    def info_(cls, message: str): cls().info(message)
-    @classmethod
-    def success_(cls, message: str): cls().success(message)
-    @classmethod
-    def warning_(cls, message: str): cls().warning(message)
-    @classmethod
-    def error_(cls, message: str): cls().error(message)
-    @classmethod
-    def critical_(cls, message: str): cls().critical(message)
