@@ -4,7 +4,7 @@ repo_url: "https://github.com/Ashreach/ThLun"
 repo_name: "Ashreach/ThLun"
 site_dir: "site"
 edit_uri: edit/main/docs/
-copyright: "© 2025-{{ 'now' | strftime('%Y') }} Ashreach"
+copyright: "© 2025-2026 Ashreach"
 
 validation:
   omitted_files: warn
