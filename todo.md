@@ -1,6 +1,7 @@
-- [x] Colors
-- [x] Logger
-- [ ] Task bars
-- [ ] Loading indicators
-- [ ] Boofers
+- [X] Colors
+- [X] Logger
+- [X] Progress bars
+- [X] Loading indicators
+- [ ] Task bars ?
+- [ ] Boofers 
 - [ ] Menus
